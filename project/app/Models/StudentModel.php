@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 //use Illuminate\Validation\Rule;
 
-class ServiceModel extends Model
+class StudentModel extends Model
 {
-    protected $table = 'service';
+    protected $table = 'students';
     protected $primaryKey = 'protocol';
     protected $fillable = [
         'name', 'surname', 'patronymic', 'finish_education', 'discharge', 'certificates', 'evidence', 'protocol'

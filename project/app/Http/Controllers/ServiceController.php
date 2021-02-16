@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ServiceModel;
-use Illuminate\Http\Request;
+use App\Models\StudentModel;
 use App\Http\Requests\UserServiceRequest;
 
 class ServiceController extends Controller
@@ -16,13 +15,13 @@ class ServiceController extends Controller
         $request->flash();
         $request->validated();
 
-        $service = ServiceModel::query()->where('name', '=', $request->name)
+        $students = StudentModel::query()->where('name', '=', $request->name)
                                         ->where('surname', '=', $request->surname)
                                         ->where('patronymic', '=', $request->patronymic)->get();
 
-        if ($service->isNotEmpty()) {
+        if ($students->isNotEmpty()) {
             return view('service.show', [
-                'service' => $service
+                'students' => $students
             ]);
         }
 

@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Imports\ServiceImport;
-use App\Models\ServiceModel;
+use App\Exports\ServiceExport;
+use App\Models\StudentModel;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -14,9 +15,10 @@ class AdminController extends Controller
         return view('admin.index');
     }
 
+    // Добавление одиночной записи
     public function create(Request $request) {
-        $object = new ServiceModel();
-        $this->validate($request, ServiceModel::rules($object));
+        $object = new StudentModel();
+        $this->validate($request, StudentModel::rules($object));
 
         try {
             $result = $object->fill($request->all())->save();
@@ -30,14 +32,25 @@ class AdminController extends Controller
         }
     }
 
+    // Загрузка таблицей excel
     public function import(Request $request) {
         if (!$request->hasFile('excel')) {
             return redirect()->back()->with('error', 'Вы не загрузили файл');
         } else {
-            $path = $request->file('excel')->store('storage');
-            Excel::import(new ServiceImport, $path);
-            return redirect()->back()->with('success', 'Данные успешно загруженны');
+            try {
+                $path = $request->file('excel')->store('storage');
+                Excel::import(new ServiceImport, $path);
+                return redirect()->back()->with('success', 'Данные успешно загруженны');
+            } catch (\Exception $exception) {
+                return redirect()->back()->with('error', 'Не удалось загрузить базу. Попробуйте еще раз');
+            }
+
         }
 
+    }
+
+    // Выгрузка таблицы excel
+    public function export() {
+        return Excel::download(new ServiceExport, 'students.xlsx');
     }
 }

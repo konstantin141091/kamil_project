@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <p>Результат</p>
-        @foreach($service as $item)
+        @foreach($students as $item)
             <p>{{ $item->name }}</p>
             <p>{{ $item->surname }}</p>
             <p>{{ $item->patronymic }}</p>

@@ -32,5 +32,8 @@
             <input type="file" name="excel">
             <button type="submit">Загрузить</button>
         </form>
+
+        <h3>Выгрузить записи таблицей excel</h3>
+        <a href="{{ route('admin.export') }}">Выгрузить</a>
     </div>
 @endsection

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateServiceTable extends Migration
+class CreateStudentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateServiceTable extends Migration
      */
     public function up()
     {
-        Schema::create('service', function (Blueprint $table) {
+        Schema::create('students', function (Blueprint $table) {
             $table->string('protocol')->primary()->comment('протокол, первичный ключ');
             $table->string('evidence')->unique()->nullable()->comment('свидетельство');
             $table->string('certificates')->unique()->nullable()->comment('удостоверение');
             $table->string('discharge')->nullable()->comment('разряд');
-            $table->date('finish_education')->comment('дата окончания обучения');
+            $table->date('finish_education')->nullable()->comment('дата окончания обучения');
             $table->string('name')->comment('имя');
             $table->string('surname')->comment('фамилия');
             $table->string('patronymic')->comment('отчество');
@@ -33,6 +33,6 @@ class CreateServiceTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('service');
+        Schema::dropIfExists('students');
     }
 }

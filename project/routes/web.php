@@ -17,7 +17,18 @@ use Illuminate\Support\Facades\Route;
 //    return view('welcome');
 //});
 
-Auth::routes();
+//Auth::routes();
+
+// аунтификация.  Убрал регистрацию
+Route::group([
+    'namespace' => 'Auth',
+], function() {
+    Route::get('login', 'LoginController@showLoginForm')->name('login');
+    Route::post('login', 'LoginController@login');
+    Route::post('logout', 'LoginController@logout')->name('logout');
+//    Route::get('register', 'RegisterController@showRegistrationForm')->name('register');
+//    Route::post('register', 'RegisterController@register');
+});
 
 Route::get('/', 'HomeController@index')->name('index');
 
@@ -35,18 +46,11 @@ Route::group([
 Route::group([
     'prefix' => 'admin',
     'as' => 'admin.',
-//    'namespace' => 'Admin'
+    'middleware' => ['auth', 'isAdmin'],
 ], function() {
     Route::get('/', 'AdminController@index')->name('index');
     Route::post('/create', 'AdminController@create')->name('create');
     Route::post('/import', 'AdminController@import')->name('import');
+    Route::get('/export', 'AdminController@export')->name('export');
 });
 
-
-
-
-
-Route::get('/form', 'FormController@index')->name('form_index');
-Route::get('/create', 'FormController@create')->name('form_create');
-Route::post('/create', 'FormController@store')->name('form_store');
-Route::post('/import', 'FormController@import')->name('import');
