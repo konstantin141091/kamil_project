@@ -10944,3 +10944,49 @@ a.text-dark:focus {
   }
 }
 
+.header {
+  background-color: #00257e;
+}
+
+.header__link {
+  color: #ffffff !important;
+  font-size: 1.4rem;
+}
+
+.header__link:hover {
+  text-decoration: underline;
+}
+
+.find__form input {
+  margin-bottom: 10px;
+  font-size: 20px;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.find__form input:last-child {
+  margin-bottom: 0;
+}
+
+.find__form:first-child {
+  margin-top: 0;
+}
+
+.find__answer p {
+  font-size: 24px;
+}
+
+.find__answer p span {
+  color: #3490dc;
+}
+
+@media screen and (max-width: 768px) {
+  .find__form {
+    margin-top: 20px;
+  }
+
+  .find__form:first-child {
+    margin-top: 0;
+  }
+}
+

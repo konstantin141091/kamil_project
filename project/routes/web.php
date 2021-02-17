@@ -39,7 +39,8 @@ Route::group([
     'as' => 'service.',
 ], function() {
     Route::get('/', 'ServiceController@index')->name('index');
-    Route::post('/', 'ServiceController@find')->name('find');
+    Route::post('/name', 'ServiceController@findByName')->name('findByName');
+    Route::post('/protocol', 'ServiceController@findByProtocol')->name('findByProtocol');
 });
 
 // Роуты для работы админа

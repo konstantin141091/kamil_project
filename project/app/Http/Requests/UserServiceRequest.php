@@ -29,4 +29,13 @@ class UserServiceRequest extends FormRequest
             'patronymic' => 'required|max:50',
         ];
     }
+
+    public function attributes()
+    {
+        return [
+            'name' => 'Имя',
+            'surname' => 'Фамилия',
+            'patronymic' => 'Отчество',
+        ];
+    }
 }
