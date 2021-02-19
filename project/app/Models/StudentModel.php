@@ -10,7 +10,14 @@ class StudentModel extends Model
     protected $table = 'students';
     protected $primaryKey = 'protocol';
     protected $fillable = [
-        'name', 'surname', 'patronymic', 'finish_education', 'discharge', 'certificates', 'evidence', 'protocol'
+        'name',
+        'surname',
+        'patronymic',
+        'finish_education',
+        'discharge',
+        'certificates',
+        'evidence',
+        'protocol'
     ];
 
     public static function rules()
@@ -24,6 +31,20 @@ class StudentModel extends Model
             'certificates' => 'required',
             'evidence' => 'required',
             'protocol' => 'required',
+        ];
+    }
+
+    public static function attributesName() {
+
+        return [
+            'name' => "Имя",
+            'surname' => 'Фамилия',
+            'patronymic' => 'Отчество',
+            'finish_education' => 'Дата окончания обучения',
+            'discharge' => 'Разряд',
+            'certificates' => 'Сертификат',
+            'evidence' => 'Свидетельство',
+            'protocol' => 'Протокол',
         ];
     }
 }

@@ -20,6 +20,10 @@
     & input:last-child {
       margin-bottom: 0;
     }
+    & label {
+      color: #3490dc;
+      font-size: 20px;
+    }
   }
   &__form:first-child {
     margin-top: 0;
@@ -43,5 +47,18 @@
     &__form:first-child {
       margin-top: 0;
     }
+  }
+}
+
+.students {
+  &__buttons-group {
+    display: flex;
+    justify-content: flex-start;
+    & a {
+      margin-right: 20px;
+    }
+  }
+  & p {
+    font-size: 20px;
   }
 }

@@ -10968,6 +10968,11 @@ a.text-dark:focus {
   margin-bottom: 0;
 }
 
+.find__form label {
+  color: #3490dc;
+  font-size: 20px;
+}
+
 .find__form:first-child {
   margin-top: 0;
 }
@@ -10988,5 +10993,18 @@ a.text-dark:focus {
   .find__form:first-child {
     margin-top: 0;
   }
+}
+
+.students__buttons-group {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.students__buttons-group a {
+  margin-right: 20px;
+}
+
+.students p {
+  font-size: 20px;
 }
 

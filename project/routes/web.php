@@ -48,10 +48,30 @@ Route::group([
     'prefix' => 'admin',
     'as' => 'admin.',
     'middleware' => ['auth', 'isAdmin'],
+    'namespace' => 'Admin',
 ], function() {
     Route::get('/', 'AdminController@index')->name('index');
-    Route::post('/create', 'AdminController@create')->name('create');
-    Route::post('/import', 'AdminController@import')->name('import');
-    Route::get('/export', 'AdminController@export')->name('export');
+    Route::group([
+        'prefix' => 'student',
+        'as' => 'student.'
+    ], function () {
+        Route::post('/import', 'StudentsController@import')->name('import');
+        Route::get('/export', 'StudentsController@export')->name('export');
+        Route::post('/create', 'StudentsController@create')->name('create');
+        Route::get('/', 'StudentsController@index')->name('index');
+        Route::get('/{student}', 'StudentsController@show')->name('show');
+        Route::get('/edit/{student}', 'StudentsController@edit')->name('edit');
+        Route::post('/update/{student}', 'StudentsController@update')->name('update');
+        Route::post('/delete/{student}', 'StudentsController@delete')->name('delete');
+    });
+    Route::group([
+        'prefix' => 'client',
+        'as' => 'client.'
+    ], function () {
+        Route::post('/create', 'ClientController@create')->name('create');
+        Route::get('/', 'ClientController@index')->name('index');
+        Route::get('/edit/{client}', 'ClientController@edit')->name('edit');
+        Route::post('/delete/{client}', 'ClientController@delete')->name('delete');
+    });
 });
 
