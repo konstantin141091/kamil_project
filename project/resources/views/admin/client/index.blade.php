@@ -11,33 +11,34 @@
         <h3>Просмотр всех клиентов</h3>
         <div class="students">
             @foreach($clients as $item)
-                <p>
-                    Заказчик: <span>{{ $item->client }}</span>
-
-                    @if($item->source)
-                    Источник: <span>{{ $item->source }}</span>
+                <p>Заказчик: <span>{{ $item->client }}</span></p>
+                <p>@if($item->source)
+                        Источник: <span>{{ $item->source }}</span>
                     @else
-                    Источник не указан
+                        Источник не указан
                     @endif
-
-                    @if($item->address)
-                    Адрес: <span>{{ $item->address }}</span>
+                </p>
+                <p>@if($item->address)
+                        Адрес: <span>{{ $item->address }}</span>
                     @else
                         Адрес не указан
                     @endif
-
+                </p>
+                <p>
                     @if($item->phone)
-                    Телефон: <span>{{ $item->phone }}</span>
+                        Телефон: <span>{{ $item->phone }}</span>
                     @else
                         Телефон не указана
                     @endif
-
+                </p>
+                <p>
                     @if($item->sum)
-                    Сумма: <span>{{ $item->sum }}</span>
+                        Сумма: <span>{{ $item->sum }}</span>
                     @else
                         Сумма не указан
                     @endif
-
+                </p>
+                <p>
                     @if($item->comment)
                     Комментарий: <span>{{ $item->comment }}</span>
                     @else
@@ -48,12 +49,15 @@
                     <a href="{{ route('admin.client.edit', $item->id) }}" class="btn btn-success">Редактировать</a>
                     <form action="{{ route('admin.client.delete', $item->id) }}" method="post">
                         @csrf
-                        <input type="hidden" name="protocol" value="{{ $item->id }}">
+                        <input type="hidden" name="id" value="{{ $item->id }}">
                         <button type="submit" class="btn btn-danger">Удалить</button>
                     </form>
                 </div>
                 <hr>
             @endforeach
+            <div>
+                {{ $clients->links() }}
+            </div>
         </div>
     </div>
 @endsection

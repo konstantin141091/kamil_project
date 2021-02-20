@@ -14,7 +14,7 @@ class StudentsController extends Controller
 {
     public function index() {
         try {
-            $students = StudentModel::all();
+            $students = StudentModel::paginate(10);
             return view('admin.student.index', [
                 'students' => $students
             ]);
@@ -42,7 +42,7 @@ class StudentsController extends Controller
                 'student' => $student,
             ]);
         } catch (\Exception $exception) {
-            return route('admin')->with('error', 'Сбой базы данных. Попробуйте еще раз');
+            return back()->with('error', 'Сбой базы данных. Попробуйте еще раз');
         }
 
     }
@@ -51,7 +51,6 @@ class StudentsController extends Controller
         $request->flash();
         $this->validate($request, StudentModel::rules($studentModel), [], StudentModel::attributesName());
         try {
-            $studentModel->fill($request->all());
             $student = StudentModel::query()->find($request->protocol);
             $student->fill($request->all());
             if ($student->save()) {
@@ -97,11 +96,11 @@ class StudentsController extends Controller
 
     // Загрузка таблицей excel
     public function import(Request $request) {
-        if (!$request->hasFile('excel')) {
+        if (!$request->hasFile('students')) {
             return redirect()->back()->with('error', 'Вы не загрузили файл');
         } else {
             try {
-                $path = $request->file('excel')->store('storage');
+                $path = $request->file('students')->store('storage');
                 Excel::import(new ServiceImport, $path);
                 return redirect()->back()->with('success', 'Данные успешно загруженны');
             } catch (\Exception $exception) {
@@ -120,5 +119,21 @@ class StudentsController extends Controller
             return back()->with('error', 'Сбой базы данных. Попробуйте еще раз');
         }
 
+    }
+
+    public function find(Request $request) {
+        $request->flash();
+        if ($request->protocol_find) {
+            $student = StudentModel::query()->find($request->protocol_find);
+            if ($student) {
+                return view('admin.student.show', [
+                    'student' => $student,
+                ]);
+            } else {
+                return back()->with('error', 'Ничего не нашли');
+            }
+        }else {
+            return back()->with('error', 'Поле Протокол не заполнено');
+        }
     }
 }

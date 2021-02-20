@@ -28,6 +28,9 @@
             </div>
             <hr>
             @endforeach
+                <div>
+                    {{ $students->links() }}
+                </div>
         </div>
     </div>
 @endsection

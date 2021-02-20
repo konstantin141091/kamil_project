@@ -36,11 +36,9 @@
                             <a class="nav-link header__link" href="{{ route('service.index') }}">Поиск в реестре</a>
                         </li>
                         @auth
-                            @if(Auth::user()->is_admin)
-                                <li class="nav-item">
-                                    <a class="nav-link header__link" href="{{ route('admin.index') }}">Панель админа</a>
-                                </li>
-                            @endif
+                            <li class="nav-item">
+                                <a class="nav-link header__link" href="{{ route('admin.index') }}">Панель админа</a>
+                            </li>
                         @endauth
 
                     </ul>
@@ -49,7 +47,7 @@
                         @guest
                         @else
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle header__link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
                                 </a>
 
@@ -57,7 +55,7 @@
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                        {{ __('Выйти') }}
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

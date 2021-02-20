@@ -18,9 +18,9 @@ class CreateClientsTable extends Migration
             $table->string('client')->comment('заказчик');
             $table->string('source')->nullable()->comment('источник');
             $table->string('address')->nullable()->comment('адрес');
-            $table->string('comment')->nullable()->comment('комментарий');
             $table->char('phone', 20)->nullable()->comment('телефон');
             $table->unsignedBigInteger('sum')->nullable()->comment('сумма');
+            $table->string('comment')->nullable()->comment('комментарий');
             $table->timestamps();
         });
     }

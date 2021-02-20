@@ -47,7 +47,7 @@ Route::group([
 Route::group([
     'prefix' => 'admin',
     'as' => 'admin.',
-    'middleware' => ['auth', 'isAdmin'],
+    'middleware' => 'auth',
     'namespace' => 'Admin',
 ], function() {
     Route::get('/', 'AdminController@index')->name('index');
@@ -63,6 +63,7 @@ Route::group([
         Route::get('/edit/{student}', 'StudentsController@edit')->name('edit');
         Route::post('/update/{student}', 'StudentsController@update')->name('update');
         Route::post('/delete/{student}', 'StudentsController@delete')->name('delete');
+        Route::post('/find', 'StudentsController@find')->name('find');
     });
     Route::group([
         'prefix' => 'client',
@@ -72,6 +73,19 @@ Route::group([
         Route::get('/', 'ClientController@index')->name('index');
         Route::get('/edit/{client}', 'ClientController@edit')->name('edit');
         Route::post('/delete/{client}', 'ClientController@delete')->name('delete');
+        Route::post('/update/{client}', 'ClientController@update')->name('update');
+        Route::post('/find', 'ClientController@find')->name('find');
+        Route::post('/import', 'ClientController@import')->name('import');
+        Route::get('/export', 'ClientController@export')->name('export');
+    });
+    Route::group([
+        'middleware' => 'isAdmin',
+        'prefix' => 'user',
+        'as' => 'user.'
+    ], function (){
+        Route::get('/', 'UserController@index')->name('index');
+        Route::post('/create', 'UserController@create')->name('create');
+        Route::post('/delete/{user}', 'UserController@delete')->name('delete');
     });
 });
 

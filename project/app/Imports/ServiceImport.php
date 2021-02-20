@@ -16,13 +16,13 @@ class ServiceImport implements ToModel
     {
 
         return new StudentModel([
-            'name'     => $row[0],
+            'protocol'     => $row[0],
             'surname'    => $row[1],
-            'patronymic' => $row[2],
-            'discharge' => $row[3],
-            'certificates' => $row[4],
+            'name' => $row[2],
+            'patronymic' => $row[3],
+            'discharge' => $row[4],
             'evidence' => $row[5],
-            'protocol' => $row[6],
+            'certificates' => $row[6],
             'finish_education' => $row[7],
         ]);
     }
