@@ -17,20 +17,32 @@ class StudentModel extends Model
         'discharge',
         'certificates',
         'evidence',
-        'protocol'
+        'protocol',
+        'client',
+        'source',
+        'address',
+        'comment',
+        'phone',
+        'sum',
     ];
 
     public static function rules()
     {
         return [
-            'name' => "required",
-            'surname' => 'required',
-            'patronymic' => 'required',
-            'finish_education' => 'required',
-            'discharge' => 'required',
-            'certificates' => 'required',
-            'evidence' => 'required',
-            'protocol' => 'required',
+            'name' => "required|max:35",
+            'surname' => 'required|max:35',
+            'patronymic' => 'required|max:35',
+            'finish_education' => '',
+            'discharge' => 'max:2',
+            'certificates' => 'max:15',
+            'evidence' => 'max:15',
+            'protocol' => 'required|max:15',
+            'client' => "max:50",
+            'source' => 'max:50',
+            'address' => 'max:120',
+            'comment' => 'max:120',
+            'phone' => 'max:20',
+            'sum' => 'max:8',
         ];
     }
 
@@ -45,6 +57,12 @@ class StudentModel extends Model
             'certificates' => 'Сертификат',
             'evidence' => 'Свидетельство',
             'protocol' => 'Протокол',
+            'client' => "Заказчик",
+            'source' => 'Источник',
+            'address' => 'Адрес',
+            'comment' => 'Комментарий',
+            'phone' => 'Телефон',
+            'sum' => 'Сумма'
         ];
     }
 }

@@ -22,6 +22,14 @@ class CreateStudentsTable extends Migration
             $table->string('evidence')->unique()->nullable()->comment('свидетельство');
             $table->string('certificates')->unique()->nullable()->comment('удостоверение');
             $table->date('finish_education')->nullable()->comment('дата окончания обучения');
+//            доп поля админа
+            $table->string('client')->nullable()->comment('заказчик');
+            $table->string('source')->nullable()->comment('источник');
+            $table->string('address')->nullable()->comment('адрес');
+            $table->char('phone', 20)->nullable()->comment('телефон');
+            $table->unsignedBigInteger('sum')->nullable()->comment('сумма');
+            $table->string('comment')->nullable()->comment('комментарий');
+
 
 
 
