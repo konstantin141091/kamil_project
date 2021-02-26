@@ -62,3 +62,12 @@
     font-size: 20px;
   }
 }
+
+.admin {
+  &__form {
+    margin-bottom: 15px;
+    & div {
+      margin-bottom: 10px;
+    }
+  }
+}

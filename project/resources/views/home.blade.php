@@ -23,6 +23,9 @@
             repellat repellendus sapiente totam vel velit. Ab animi at iusto quas. Consectetur, facere laudantium!
         </div>
     </div>
+    <div class="d-flex justify-content-center">
+        <img src="{{ asset("storage/images/main.jpg") }}" alt="">
+    </div>
 
 </div>
 @endsection

@@ -11008,3 +11008,11 @@ a.text-dark:focus {
   font-size: 20px;
 }
 
+.admin__form {
+  margin-bottom: 15px;
+}
+
+.admin__form div {
+  margin-bottom: 10px;
+}
+

@@ -51,32 +51,22 @@ Route::group([
     'namespace' => 'Admin',
 ], function() {
     Route::get('/', 'AdminController@index')->name('index');
+    Route::get('/instruction', 'AdminController@instruction')->name('instruction');
     Route::group([
         'prefix' => 'student',
         'as' => 'student.'
     ], function () {
-        Route::post('/import', 'StudentsController@import')->name('import');
-        Route::get('/export', 'StudentsController@export')->name('export');
-        Route::post('/create', 'StudentsController@create')->name('create');
-        Route::get('/', 'StudentsController@index')->name('index');
-        Route::get('/{student}', 'StudentsController@show')->name('show');
-        Route::get('/edit/{student}', 'StudentsController@edit')->name('edit');
-        Route::post('/update/{student}', 'StudentsController@update')->name('update');
-        Route::post('/delete/{student}', 'StudentsController@delete')->name('delete');
-        Route::post('/find', 'StudentsController@find')->name('find');
-    });
-    Route::group([
-        'prefix' => 'client',
-        'as' => 'client.'
-    ], function () {
-        Route::post('/create', 'ClientController@create')->name('create');
-        Route::get('/', 'ClientController@index')->name('index');
-        Route::get('/edit/{client}', 'ClientController@edit')->name('edit');
-        Route::post('/delete/{client}', 'ClientController@delete')->name('delete');
-        Route::post('/update/{client}', 'ClientController@update')->name('update');
-        Route::post('/find', 'ClientController@find')->name('find');
-        Route::post('/import', 'ClientController@import')->name('import');
-        Route::get('/export', 'ClientController@export')->name('export');
+        Route::post('/import', 'StudentController@import')->name('import');
+        Route::get('/export', 'StudentController@export')->name('export');
+        Route::post('/create', 'StudentController@create')->name('create');
+        Route::get('/', 'StudentController@index')->name('index');
+        Route::get('/{student}', 'StudentController@show')->name('show');
+        Route::get('/edit/{student}', 'StudentController@edit')->name('edit');
+        Route::post('/update/{student}', 'StudentController@update')->name('update');
+        Route::post('/delete/{student}', 'StudentController@delete')->name('delete');
+        Route::post('/find', 'StudentController@find')->name('find');
+        Route::get('/delete/all', 'StudentController@deleteAll')->name('deleteAll')
+            ->middleware('isAdmin');
     });
     Route::group([
         'middleware' => 'isAdmin',

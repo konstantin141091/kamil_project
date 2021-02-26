@@ -12,153 +12,240 @@
 
 {{--        Работа с реестром--}}
         <h3>Одиночное добавление записи в реестр</h3>
-        <form action="{{ route('admin.student.create') }}" method="post">
+        <form action="{{ route('admin.student.create') }}" method="post" class="admin__form">
             @csrf
-            <input type="text" placeholder="name" name="name" value="{{ old('name') }}">
-            <input type="text" placeholder="surname" name="surname" value="{{ old('surname') }}">
-            <input type="text" placeholder="patronymic" name="patronymic" value="{{ old('patronymic') }}">
-            <input type="date" placeholder="finish_education" name="finish_education" value="{{ old('finish_education') }}">
-            <input type="text" placeholder="discharge" name="discharge" value="{{ old('discharge') }}">
-            <input type="text" placeholder="certificates" name="certificates" value="{{ old('certificates') }}">
-            <input type="text" placeholder="evidence" name="evidence" value="{{ old('evidence') }}">
-            <input type="text" placeholder="protocol" name="protocol" value="{{ old('protocol') }}">
+            <div class="form-row">
+                <div class="col">
+                    <input type="text" class="form-control" placeholder="Протокол" name="protocol" value="{{ old('protocol') }}">
+                    @if($errors->has('protocol'))
+                        <div class="alert alert-danger" role="alert">
+                            @foreach($errors->get('protocol') as $err)
+                                {{ $err }}
+                            @endforeach
+                        </div>
+                    @endif
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control"  placeholder="Фамилия" name="surname" value="{{ old('surname') }}">
+                    @if($errors->has('surname'))
+                        <div class="alert alert-danger" role="alert">
+                            @foreach($errors->get('surname') as $err)
+                                {{ $err }}
+                            @endforeach
+                        </div>
+                    @endif
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col">
+                    <input type="text" class="form-control"  placeholder="Имя" name="name" value="{{ old('name') }}">
+                    @if($errors->has('name'))
+                        <div class="alert alert-danger" role="alert">
+                            @foreach($errors->get('name') as $err)
+                                {{ $err }}
+                            @endforeach
+                        </div>
+                    @endif
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control"  placeholder="Отчество" name="patronymic" value="{{ old('patronymic') }}">
+                    @if($errors->has('patronymic'))
+                        <div class="alert alert-danger" role="alert">
+                            @foreach($errors->get('patronymic') as $err)
+                                {{ $err }}
+                            @endforeach
+                        </div>
+                    @endif
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col">
+                    <input type="text" class="form-control" placeholder="Разряд" name="discharge" value="{{ old('discharge') }}">
+                    @if($errors->has('discharge'))
+                        <div class="alert alert-danger" role="alert">
+                            @foreach($errors->get('discharge') as $err)
+                                {{ $err }}
+                            @endforeach
+                        </div>
+                    @endif
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control" placeholder="Свидетельство" name="evidence" value="{{ old('evidence') }}">
+                    @if($errors->has('evidence'))
+                        <div class="alert alert-danger" role="alert">
+                            @foreach($errors->get('evidence') as $err)
+                                {{ $err }}
+                            @endforeach
+                        </div>
+                    @endif
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col">
+                    <input type="text" class="form-control"  placeholder="Удостоверение" name="certificates" value="{{ old('certificates') }}">
+                    @if($errors->has('certificates'))
+                        <div class="alert alert-danger" role="alert">
+                            @foreach($errors->get('certificates') as $err)
+                                {{ $err }}
+                            @endforeach
+                        </div>
+                    @endif
+                </div>
+                <div class="col">
+                    <input type="date" class="form-control"  placeholder="Дата окончания" name="finish_education" value="{{ old('finish_education') }}">
+                    @if($errors->has('finish_education'))
+                        <div class="alert alert-danger" role="alert">
+                            @foreach($errors->get('finish_education') as $err)
+                                {{ $err }}
+                            @endforeach
+                        </div>
+                    @endif
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col">
+                    <input type="text" class="form-control" placeholder="Заказчик" name="client" value="{{ old('client') }}">
+                    @if($errors->has('client'))
+                        <div class="alert alert-danger" role="alert">
+                            @foreach($errors->get('client') as $err)
+                                {{ $err }}
+                            @endforeach
+                        </div>
+                    @endif
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control" placeholder="Источник" name="source" value="{{ old('source') }}">
+                    @if($errors->has('source'))
+                        <div class="alert alert-danger" role="alert">
+                            @foreach($errors->get('source') as $err)
+                                {{ $err }}
+                            @endforeach
+                        </div>
+                    @endif
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col">
+                    <input type="text" class="form-control" placeholder="Адрес" name="address" value="{{ old('address') }}">
+                    @if($errors->has('address'))
+                        <div class="alert alert-danger" role="alert">
+                            @foreach($errors->get('address') as $err)
+                                {{ $err }}
+                            @endforeach
+                        </div>
+                    @endif
+                </div>
+                <div class="col">
+                    <input type="number" class="form-control" placeholder="79145689898" name="phone" value="{{ old('phone') }}">
+                    @if($errors->has('phone'))
+                        <div class="alert alert-danger" role="alert">
+                            @foreach($errors->get('phone') as $err)
+                                {{ $err }}
+                            @endforeach
+                        </div>
+                    @endif
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col">
+                    <input type="number" class="form-control" placeholder="Сумма" name="sum" value="{{ old('sum') }}">
+                    @if($errors->has('sum'))
+                        <div class="alert alert-danger" role="alert">
+                            @foreach($errors->get('sum') as $err)
+                                {{ $err }}
+                            @endforeach
+                        </div>
+                    @endif
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control" placeholder="Комментарий" name="comment" value="{{ old('comment') }}">
+                    @if($errors->has('comment'))
+                        <div class="alert alert-danger" role="alert">
+                            @foreach($errors->get('comment') as $err)
+                                {{ $err }}
+                            @endforeach
+                        </div>
+                    @endif
+                </div>
+            </div>
 
-            <button type="submit">Добавить</button>
+            <button type="submit" class="btn btn-primary">Добавить</button>
         </form>
 
         <h3>Добавление в реестр записей таблицей excel</h3>
 
-        <form action="{{ route('admin.student.import') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('admin.student.import') }}" method="post" enctype="multipart/form-data" class="form-group">
             @csrf
-            <input type="file" name="students">
-            <button type="submit" >Загрузить</button>
+            <label for="students">Загрузите файл excel соответствующий требованиям загрузки</label>
+            <input type="file" name="students" class="form-control-file mb-lg-2" id="students">
+            <button type="submit" class="btn btn-primary">Загрузить</button>
         </form>
 
         <h3>Выгрузить записи таблицей excel</h3>
-        <a href="{{ route('admin.student.export') }}">Выгрузить</a>
+        <a href="{{ route('admin.student.export') }}" class="btn btn-success mb-lg-2">Выгрузить</a>
         <h3>Поиск в реестре по номеру протокола</h3>
-        <form action="{{ route('admin.student.find') }}" class="find__form" method="post">
+        <form action="{{ route('admin.student.find') }}" class="find__form mb-lg-2" method="post">
             @csrf
             <input type="text" name="protocol_find" placeholder="Номер протокола" value="{{ old('protocol_find') }}">
             <button type="submit" class="btn btn-primary">Поиск</button>
         </form>
         <h3>Просмотр всего реестра</h3>
-        <a href="{{ route('admin.student.index') }}">Посмотреть</a>
-        <hr>
-{{--        Работа с базой клиентов--}}
-        <h3>База клиентов</h3>
-        <h3>Одиночное добавление записи в базу клиентов</h3>
-        <form action="{{ route('admin.client.create') }}" method="post">
-            @csrf
-            <input type="text" placeholder="Заказчик" name="client" value="{{ old('client') }}">
-            @if($errors->has('client'))
-                <div class="alert alert-danger" role="alert">
-                    @foreach($errors->get('client') as $err)
-                        {{ $err }}
-                    @endforeach
-                </div>
-            @endif
-            <input type="text" placeholder="Источник" name="source" value="{{ old('source') }}">
-            @if($errors->has('source'))
-                <div class="alert alert-danger" role="alert">
-                    @foreach($errors->get('source') as $err)
-                        {{ $err }}
-                    @endforeach
-                </div>
-            @endif
-            <input type="text" placeholder="Адрес" name="address" value="{{ old('address') }}">
-            @if($errors->has('address'))
-                <div class="alert alert-danger" role="alert">
-                    @foreach($errors->get('address') as $err)
-                        {{ $err }}
-                    @endforeach
-                </div>
-            @endif
-            <input type="text" placeholder="Комментарий" name="comment" value="{{ old('comment') }}">
-            @if($errors->has('comment'))
-                <div class="alert alert-danger" role="alert">
-                    @foreach($errors->get('comment') as $err)
-                        {{ $err }}
-                    @endforeach
-                </div>
-            @endif
-            <input type="number" placeholder="79145145151" name="phone" value="{{ old('phone') }}">
-            @if($errors->has('phone'))
-                <div class="alert alert-danger" role="alert">
-                    @foreach($errors->get('phone') as $err)
-                        {{ $err }}
-                    @endforeach
-                </div>
-            @endif
-            <input type="number" placeholder="Сумма" name="sum" value="{{ old('sum') }}">
-            @if($errors->has('sum'))
-                <div class="alert alert-danger" role="alert">
-                    @foreach($errors->get('sum') as $err)
-                        {{ $err }}
-                    @endforeach
-                </div>
-            @endif
-            <button type="submit">Добавить</button>
-        </form>
-        <h3>Просмотр всей базы клиентов</h3>
-        <a href="{{ route('admin.client.index') }}">Посмотреть</a>
-        <h3>Поиск клиента по имени</h3>
-        <form action="{{ route('admin.client.find') }}" class="find__form" method="post">
-            @csrf
-            <input type="text" name="client_find" placeholder="Клиент" value="{{ old('client_find') }}">
-            <button type="submit" class="btn btn-primary">Найти</button>
-        </form>
-        <h3>Добавление клиентов таблицей excel</h3>
-        <form action="{{ route('admin.client.import') }}" class="find__form" enctype="multipart/form-data" method="post">
-            @csrf
-            <input type="file" name="clients" placeholder="Файл excel">
-            <button type="submit" class="btn btn-primary">Загрузить</button>
-        </form>
-        <h3>Выгрузить базу клиентов</h3>
-        <a href="{{ route('admin.client.export') }}">Выгрузить</a>
+        <a href="{{ route('admin.student.index') }}" class="btn btn-success mb-lg-2">Посмотреть</a>
+        @if(Auth::user()->is_admin)
+        <h3>Удалить все записи из реестра. Эта операция не обратима!!!</h3>
+            <a href="{{ route('admin.student.deleteAll') }}" class="btn btn-danger">УДАЛИТЬ ВЕСЬ РЕЕСТР</a>
+        @endif
         <hr>
 
 {{--        Работа с админами--}}
         @if(Auth::user()->is_admin)
             <h3>Упраление админами</h3>
             <h3>Добавить админа</h3>
-            <form action="{{ route('admin.user.create') }}" class="find__form" method="post">
+            <form action="{{ route('admin.user.create') }}" method="post" class="admin__form">
                 @csrf
-                <input type="text" name="name" placeholder="Имя" value="{{ old('name') }}">
-                @if($errors->has('name'))
-                    <div class="alert alert-danger" role="alert">
-                        @foreach($errors->get('name') as $err)
-                            {{ $err }}
-                        @endforeach
+                <div class="form-row">
+                    <div class="col">
+                        <input type="text" class="form-control" name="name" placeholder="Имя" value="{{ old('name') }}">
+                        @if($errors->has('name'))
+                            <div class="alert alert-danger" role="alert">
+                                @foreach($errors->get('name') as $err)
+                                    {{ $err }}
+                                @endforeach
+                            </div>
+                        @endif
                     </div>
-                @endif
-
-                <input type="text" name="email" placeholder="Email" value="{{ old('email') }}">
-                @if($errors->has('email'))
-                    <div class="alert alert-danger" role="alert">
-                        @foreach($errors->get('email') as $err)
-                            {{ $err }}
-                        @endforeach
+                    <div class="col">
+                        <input type="text" class="form-control" name="email" placeholder="Email" value="{{ old('email') }}">
+                        @if($errors->has('email'))
+                            <div class="alert alert-danger" role="alert">
+                                @foreach($errors->get('email') as $err)
+                                    {{ $err }}
+                                @endforeach
+                            </div>
+                        @endif
                     </div>
-                @endif
-
-                <input type="password" name="password" placeholder="Пароль" value="{{ old('password') }}">
-                @if($errors->has('password'))
-                    <div class="alert alert-danger" role="alert">
-                        @foreach($errors->get('password') as $err)
-                            {{ $err }}
-                        @endforeach
+                </div>
+                <div class="form-row">
+                    <div class="col">
+                        <input type="password" class="form-control" name="password" placeholder="Пароль" value="{{ old('password') }}">
+                        @if($errors->has('password'))
+                            <div class="alert alert-danger" role="alert">
+                                @foreach($errors->get('password') as $err)
+                                    {{ $err }}
+                                @endforeach
+                            </div>
+                        @endif
                     </div>
-                @endif
-
-                <input type="password" name="password_confirmation" placeholder="Повторите пароль" value="{{ old('password') }}">
-
+                    <div class="col">
+                        <input type="password" class="form-control" name="password_confirmation" placeholder="Повторите пароль" value="{{ old('password') }}">
+                    </div>
+                </div>
                 <button type="submit" class="btn btn-primary">Создать</button>
 
             </form>
 
             <h3>Просмотр всех админов сайта</h3>
-            <a href="{{ route('admin.user.index') }}">Просмотр</a>
+            <a href="{{ route('admin.user.index') }}" class="btn btn-success">Просмотр</a>
         @endif
     </div>
 @endsection

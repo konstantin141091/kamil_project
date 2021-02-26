@@ -10,7 +10,7 @@ use App\Models\StudentModel;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 
-class StudentsController extends Controller
+class StudentController extends Controller
 {
     public function index() {
         try {
@@ -81,7 +81,7 @@ class StudentsController extends Controller
     public function create(Request $request) {
         $request->flash();
         $object = new StudentModel();
-        $this->validate($request, StudentModel::rules($object));
+        $this->validate($request, StudentModel::rules($object), [], StudentModel::attributesName());
         try {
             $result = $object->fill($request->all())->save();
             if ($result) {
@@ -134,6 +134,15 @@ class StudentsController extends Controller
             }
         }else {
             return back()->with('error', 'Поле Протокол не заполнено');
+        }
+    }
+
+    public function deleteAll() {
+        try {
+            StudentModel::truncate();
+            return back()->with('success', 'Весь реестр удален.');
+        }catch (\Exception $exception) {
+            return back()->with('error', 'Сбой базы данных. Попробуйте еще раз');
         }
     }
 }

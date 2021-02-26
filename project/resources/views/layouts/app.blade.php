@@ -39,6 +39,9 @@
                             <li class="nav-item">
                                 <a class="nav-link header__link" href="{{ route('admin.index') }}">Панель админа</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link header__link" href="{{ route('admin.instruction') }}">Инструкция админа</a>
+                            </li>
                         @endauth
 
                     </ul>

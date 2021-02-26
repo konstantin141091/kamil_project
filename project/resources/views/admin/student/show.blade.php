@@ -15,9 +15,15 @@
            <p>Отчество: <span>{{ $student->patronymic }}</span></p>
            <p>Дата выдачи: <span>{{ $student->finish_education }}</span></p>
            <p>Разряд: <span>{{ $student->discharge }}</span></p>
-           <p>Сертификата: <span>{{ $student->certificates }}</span></p>
+           <p>Удостоверение: <span>{{ $student->certificates }}</span></p>
            <p>Свидетельство: <span>{{ $student->evidence }}</span></p>
            <p>Протокол: <span>{{ $student->protocol }}</span></p>
+           <p>Протокол: <span>{{ $student->client }}</span></p>
+           <p>Протокол: <span>{{ $student->source }}</span></p>
+           <p>Протокол: <span>{{ $student->address }}</span></p>
+           <p>Протокол: <span>{{ $student->phone }}</span></p>
+           <p>Протокол: <span>{{ $student->sum }}</span></p>
+           <p>Протокол: <span>{{ $student->comment }}</span></p>
            <hr>
        </div>
         <div class="students__buttons-group">

@@ -24,6 +24,12 @@ class ServiceImport implements ToModel
             'evidence' => $row[5],
             'certificates' => $row[6],
             'finish_education' => $row[7],
+            'client' => $row[8],
+            'source' => $row[9],
+            'address' => $row[10],
+            'phone' => $row[11],
+            'sum' => $row[12],
+            'comment' => $row[13],
         ]);
     }
 }
