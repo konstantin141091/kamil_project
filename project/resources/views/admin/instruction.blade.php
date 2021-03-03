@@ -21,7 +21,7 @@
                 <td class="border-right">Дата окончания обучения</td>
                 <td class="border-right">Заказчик</td>
                 <td class="border-right">Источник</td>
-                <td class="border-right">Адресс</td>
+                <td class="border-right">Адрес</td>
                 <td class="border-right">Телефон</td>
                 <td class="border-right">Сумма</td>
                 <td>Комментарий</td>

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class StudentModel extends Model
 {
     protected $table = 'students';
-    protected $primaryKey = 'protocol';
+    protected $primaryKey = 'id';
     protected $fillable = [
         'name',
         'surname',
@@ -18,7 +18,7 @@ class StudentModel extends Model
         'certificates',
         'evidence',
         'protocol',
-        'client',
+        'qualification',
         'source',
         'address',
         'comment',
@@ -33,11 +33,11 @@ class StudentModel extends Model
             'surname' => 'required|max:35',
             'patronymic' => 'required|max:35',
             'finish_education' => '',
-            'discharge' => 'max:2',
+            'discharge' => 'max:20',
             'certificates' => 'max:15',
             'evidence' => 'max:15',
             'protocol' => 'required|max:15',
-            'client' => "max:50",
+            'qualification' => "max:1000",
             'source' => 'max:50',
             'address' => 'max:120',
             'comment' => 'max:120',
@@ -47,7 +47,6 @@ class StudentModel extends Model
     }
 
     public static function attributesName() {
-
         return [
             'name' => "Имя",
             'surname' => 'Фамилия',
@@ -57,12 +56,17 @@ class StudentModel extends Model
             'certificates' => 'Сертификат',
             'evidence' => 'Свидетельство',
             'protocol' => 'Протокол',
-            'client' => "Заказчик",
+            'qualification' => "Квалификация",
             'source' => 'Источник',
             'address' => 'Адрес',
             'comment' => 'Комментарий',
             'phone' => 'Телефон',
             'sum' => 'Сумма'
         ];
+    }
+
+    public static function finishEducation($finish_education) {
+        $date = date_create($finish_education);
+        return date_format($date, 'd.m.Y');
     }
 }

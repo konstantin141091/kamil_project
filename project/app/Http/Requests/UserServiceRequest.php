@@ -27,6 +27,8 @@ class UserServiceRequest extends FormRequest
             'name' => 'required|max:50',
             'surname' => 'required|max:50',
             'patronymic' => 'required|max:50',
+            'protocol' => 'required|max:50',
+            'finish_education' => 'required',
         ];
     }
 
@@ -36,6 +38,8 @@ class UserServiceRequest extends FormRequest
             'name' => 'Имя',
             'surname' => 'Фамилия',
             'patronymic' => 'Отчество',
+            'protocol' => 'Протокол',
+            'finish_education' => 'Дата окончания обучения',
         ];
     }
 }

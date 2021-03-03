@@ -26,6 +26,7 @@ class StudentController extends Controller
     public function show($id) {
         try {
             $student = StudentModel::query()->find($id);
+            $student->finish_education = StudentModel::finishEducation($student->finish_education);
             return view('admin.student.show', [
                 'student' => $student
             ]);
@@ -51,9 +52,8 @@ class StudentController extends Controller
         $request->flash();
         $this->validate($request, StudentModel::rules($studentModel), [], StudentModel::attributesName());
         try {
-            $student = StudentModel::query()->find($request->protocol);
-            $student->fill($request->all());
-            if ($student->save()) {
+            $studentModel->fill($request->all());
+            if ($studentModel->save()) {
                 return back()->with('success', 'Изменения сохранены');
             } else {
                 return back()->with('error', 'Не удалось обновить данные. Попробуйте еще раз.');
@@ -64,9 +64,9 @@ class StudentController extends Controller
 
     }
 
-    public function delete(Request $request) {
+    public function delete($id) {
         try {
-            if (DB::table('students')->where('protocol', '=', $request->protocol)->delete()) {
+            if (DB::table('students')->where('id', '=', $id)->delete()) {
                 return redirect()->route('admin.index')->with('success', 'Запись успешно удалена.');
             } else {
                 return back()->with('error', 'Не удалось удалить запись. Попробуйте еще раз');
@@ -123,17 +123,27 @@ class StudentController extends Controller
 
     public function find(Request $request) {
         $request->flash();
-        if ($request->protocol_find) {
-            $student = StudentModel::query()->find($request->protocol_find);
-            if ($student) {
-                return view('admin.student.show', [
-                    'student' => $student,
-                ]);
-            } else {
-                return back()->with('error', 'Ничего не нашли');
+        if ($request->protocol_find && $request->surname_find) {
+            $students = StudentModel::query()->where('protocol', '=', $request->protocol_find)
+                ->where('surname', '=', $request->surname_find)->paginate(5);
+        } elseif ($request->protocol_find) {
+            $students = StudentModel::query()->where('protocol', '=', $request->protocol_find)->paginate(5);;
+        } elseif ($request->surname_find) {
+            $students = StudentModel::query()->where('surname', '=', $request->surname_find)->paginate(5);;
+        }
+        else {
+            return back()->with('error', 'Нужно ввести номер протокола или фамилию. Можно и то и то.');
+        }
+
+        if ($students->isNotEmpty()) {
+            foreach ($students as $student) {
+                $student->finish_education = StudentModel::finishEducation($student->finish_education);
             }
-        }else {
-            return back()->with('error', 'Поле Протокол не заполнено');
+            return view('admin.student.index', [
+                'students' => $students,
+            ]);
+        } else {
+            return back()->with('error', 'Ничего не нашли');
         }
     }
 

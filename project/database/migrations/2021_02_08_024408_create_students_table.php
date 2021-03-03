@@ -14,21 +14,22 @@ class CreateStudentsTable extends Migration
     public function up()
     {
         Schema::create('students', function (Blueprint $table) {
-            $table->string('protocol')->primary()->comment('протокол, первичный ключ');
-            $table->string('surname')->comment('фамилия');
-            $table->string('name')->comment('имя');
-            $table->string('patronymic')->comment('отчество');
-            $table->string('discharge')->nullable()->comment('разряд');
-            $table->string('evidence')->unique()->nullable()->comment('свидетельство');
-            $table->string('certificates')->unique()->nullable()->comment('удостоверение');
-            $table->date('finish_education')->nullable()->comment('дата окончания обучения');
+            $table->id();
+            $table->string('protocol', 50)->comment('протокол, первичный ключ');
+            $table->string('surname', 50)->comment('фамилия');
+            $table->string('name', 50)->comment('имя');
+            $table->string('patronymic', 50)->comment('отчество');
+            $table->string('discharge', 20)->nullable()->comment('разряд');
+            $table->string('evidence', 50)->nullable()->comment('свидетельство');
+            $table->string('certificates', 50)->nullable()->comment('удостоверение');
+            $table->date('finish_education')->comment('дата окончания обучения');
 //            доп поля админа
-            $table->string('client')->nullable()->comment('заказчик');
-            $table->string('source')->nullable()->comment('источник');
-            $table->string('address')->nullable()->comment('адрес');
+            $table->string('qualification', 1000)->nullable()->comment('квалификация');
+            $table->string('source', 200)->nullable()->comment('источник');
+            $table->string('address', 500)->nullable()->comment('адрес');
             $table->char('phone', 20)->nullable()->comment('телефон');
             $table->unsignedBigInteger('sum')->nullable()->comment('сумма');
-            $table->string('comment')->nullable()->comment('комментарий');
+            $table->string('comment', 1000)->nullable()->comment('комментарий');
 
 
 

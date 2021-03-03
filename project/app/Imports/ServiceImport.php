@@ -14,6 +14,7 @@ class ServiceImport implements ToModel
     */
     public function model(array $row)
     {
+        $date = date_create($row[7]);
 
         return new StudentModel([
             'protocol'     => $row[0],
@@ -23,8 +24,8 @@ class ServiceImport implements ToModel
             'discharge' => $row[4],
             'evidence' => $row[5],
             'certificates' => $row[6],
-            'finish_education' => $row[7],
-            'client' => $row[8],
+            'finish_education' => date_format($date, 'Y-m-d'),
+            'qualification' => $row[8],
             'source' => $row[9],
             'address' => $row[10],
             'phone' => $row[11],

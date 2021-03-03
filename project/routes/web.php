@@ -13,10 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::get('/', function () {
-//    return view('welcome');
-//});
-
 //Auth::routes();
 
 // аунтификация.  Убрал регистрацию
@@ -31,6 +27,10 @@ Route::group([
 });
 
 Route::get('/', 'HomeController@index')->name('index');
+Route::get('logoutOthers', function () {
+    auth()->logoutOtherDevices('password');
+    return redirect('/');
+});
 
 
 // Сервис для обычного пользователя. Поиск в базе по ФИО.
@@ -39,8 +39,7 @@ Route::group([
     'as' => 'service.',
 ], function() {
     Route::get('/', 'ServiceController@index')->name('index');
-    Route::post('/name', 'ServiceController@findByName')->name('findByName');
-    Route::post('/protocol', 'ServiceController@findByProtocol')->name('findByProtocol');
+    Route::post('/', 'ServiceController@find')->name('find');
 });
 
 // Роуты для работы админа

@@ -10,7 +10,7 @@
         @endif
         <h3>Редактировать запись студента</h3>
         <div class="find">
-            <form action="{{ route('admin.student.update', $student->protocol) }}" method="post" class="find__form">
+            <form action="{{ route('admin.student.update', $student->id) }}" method="post" class="find__form">
                 @csrf
 
                 <label for="protocol">Протокол</label>
@@ -133,16 +133,16 @@
                     </div>
                 @endif
 
-                <label for="client">Заказчик</label>
-                <input type="text" name="client" placeholder="Заказчик" id="client"
-                       @if(old('client'))
-                       value="{{ old('client') }}"
+                <label for="qualification">Квалификация</label>
+                <input type="text" name="qualification" placeholder="Квалификация" id="qualification"
+                       @if(old('qualification'))
+                       value="{{ old('qualification') }}"
                        @else
-                       value="{{ $student->client }}"
+                       value="{{ $student->qualification }}"
                         @endif>
-                @if($errors->has('client'))
+                @if($errors->has('qualification'))
                     <div class="alert alert-danger" role="alert">
-                        @foreach($errors->get('client') as $err)
+                        @foreach($errors->get('qualification') as $err)
                             {{ $err }}
                         @endforeach
                     </div>
@@ -163,8 +163,8 @@
                     </div>
                 @endif
 
-                <label for="address">Адресс</label>
-                <input type="text" name="address" placeholder="Адресс" id="address"
+                <label for="address">Адрес</label>
+                <input type="text" name="address" placeholder="Адрес" id="address"
                        @if(old('address'))
                        value="{{ old('address') }}"
                        @else
@@ -228,9 +228,8 @@
             </form>
             <hr>
         </div>
-        <form action="{{ route('admin.student.delete', $student->protocol) }}" method="post">
+        <form action="{{ route('admin.student.delete', $student->id) }}" method="post">
             @csrf
-            <input type="hidden" name="protocol" value="{{ $student->protocol }}">
             <button type="submit" class="btn btn-danger">Удалить</button>
         </form>
     </div>

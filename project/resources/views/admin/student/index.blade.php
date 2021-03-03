@@ -18,11 +18,10 @@
                     Протокол: <span>{{ $item->protocol }}</span>
                 </p>
             <div class="students__buttons-group flex">
-                <a href="{{ route('admin.student.show', $item->protocol) }}" class="btn btn-primary">Подробнее</a>
-                <a href="{{ route('admin.student.edit', $item->protocol) }}" class="btn btn-success">Редактировать</a>
-                <form action="{{ route('admin.student.delete', $item->protocol) }}" method="post">
+                <a href="{{ route('admin.student.show', $item->id) }}" class="btn btn-primary">Подробнее</a>
+                <a href="{{ route('admin.student.edit', $item->id) }}" class="btn btn-success">Редактировать</a>
+                <form action="{{ route('admin.student.delete', $item->id) }}" method="post">
                     @csrf
-                    <input type="hidden" name="protocol" value="{{ $item->protocol }}">
                     <button type="submit" class="btn btn-danger">Удалить</button>
                 </form>
             </div>
