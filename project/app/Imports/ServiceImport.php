@@ -29,7 +29,6 @@ class ServiceImport implements ToModel, WithHeadingRow, SkipsOnFailure, WithVali
         } else {
             $date = Date::excelToDateTimeObject($row['data']);
         }
-//        $date = date_create($row['data']);
 
         $student = new StudentModel([
             'protocol'     => $row['protokol'],
