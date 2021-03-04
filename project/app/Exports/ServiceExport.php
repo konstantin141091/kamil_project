@@ -4,15 +4,57 @@ namespace App\Exports;
 
 use App\Models\StudentModel;
 use Maatwebsite\Excel\Concerns\FromCollection;
-use Maatwebsite\Excel\Concerns\WithStrictNullComparison;
+use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class ServiceExport implements FromCollection, WithStrictNullComparison
+class ServiceExport implements FromCollection, WithHeadings
 {
     /**
     * @return \Illuminate\Support\Collection
     */
     public function collection()
     {
-        return StudentModel::all();
+
+        $students = StudentModel::query()->select([
+            'protocol',
+            'surname',
+            'name',
+            'patronymic',
+            'discharge',
+            'evidence',
+            'certificates',
+            'finish_education',
+            'qualification',
+            'source',
+            'address',
+            'phone',
+            'sum',
+            'comment',
+        ])->get();
+
+        foreach ($students as $student) {
+            $student->finish_education = StudentModel::finishEducation($student->finish_education);
+        }
+
+        return $students;
     }
+
+    public function headings(): array
+    {
+        return [
+            'Протокол',
+            'Фамилия',
+            'Имя',
+            'Отчество',
+            'Разряд',
+            'Свидетельство',
+            'Удостоверение',
+            'Дата окончания',
+            'Квалификация',
+            'Источник',
+            'Телефон',
+            'Сумма',
+            'Комментарий',
+        ];
+    }
+
 }

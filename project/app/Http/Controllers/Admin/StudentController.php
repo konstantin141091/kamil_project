@@ -15,6 +15,9 @@ class StudentController extends Controller
     public function index() {
         try {
             $students = StudentModel::paginate(10);
+            foreach ($students as $student) {
+                $student->finish_education = StudentModel::finishEducation($student->finish_education);
+            }
             return view('admin.student.index', [
                 'students' => $students
             ]);
@@ -99,6 +102,11 @@ class StudentController extends Controller
         if (!$request->hasFile('students')) {
             return redirect()->back()->with('error', 'Вы не загрузили файл');
         } else {
+            $path = $request->file('students')->store('storage');
+            Excel::import(new ServiceImport, $path);
+            return redirect()->back()->with('success', 'Данные успешно загруженны');
+
+
             try {
                 $path = $request->file('students')->store('storage');
                 Excel::import(new ServiceImport, $path);
@@ -113,6 +121,7 @@ class StudentController extends Controller
 
     // Выгрузка таблицы excel
     public function export() {
+        return Excel::download(new ServiceExport, 'students.xlsx');
         try {
             return Excel::download(new ServiceExport, 'students.xlsx');
         } catch (\Exception $exception) {

@@ -2,7 +2,6 @@
 
 @section('content')
     <div class="container">
-        <h2>Админ панель сервиса.</h2>
         @if(session('error'))
             <div class="alert alert-danger" role="alert">{{ session('error') }}</div>
         @endif
@@ -92,7 +91,7 @@
                     @endif
                 </div>
                 <div class="col">
-                    <input type="date" class="form-control"  placeholder="Дата окончания" name="finish_education" value="{{ old('finish_education') }}">
+                    <input type="date" class="form-control"  placeholder="Дата окончания: " name="finish_education" value="{{ old('finish_education') }}">
                     @if($errors->has('finish_education'))
                         <div class="alert alert-danger" role="alert">
                             @foreach($errors->get('finish_education') as $err)
@@ -171,20 +170,22 @@
 
             <button type="submit" class="btn btn-primary">Добавить</button>
         </form>
-
+            <hr>
         <h3>Добавление в реестр записей таблицей excel</h3>
 
         <form action="{{ route('admin.student.import') }}" method="post" enctype="multipart/form-data" class="form-group">
             @csrf
             <label for="students">Загрузите файл excel соответствующий требованиям загрузки</label>
-            <input type="file" name="students" class="form-control-file mb-lg-2" id="students">
-            <button type="submit" class="btn btn-primary">Загрузить</button>
+            <input type="file" name="students" class="form-control-file mb-lg-2" id="students" style="font-size: 20px">
+            <button type="submit" class="btn btn-primary mt-3">Загрузить</button>
         </form>
+            <hr>
 
         <h3>Выгрузить записи таблицей excel</h3>
         <a href="{{ route('admin.student.export') }}" class="btn btn-success mb-lg-2">Выгрузить</a>
+            <hr>
         <h3>Поиск в реестре</h3>
-        <form action="{{ route('admin.student.find') }}" class="find__form mb-lg-2" method="post">
+        <form action="{{ route('admin.student.find') }}" class="admin__form mb-lg-2" method="post">
             @csrf
             <div class="form-row mb-lg-2">
                 <div class="col">
@@ -194,10 +195,12 @@
                     <input class="form-control" type="text" name="surname_find" placeholder="Фамилия" value="{{ old('surname_find') }}">
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Поиск</button>
+            <button type="submit" class="btn btn-primary mt-3">Поиск</button>
         </form>
+            <hr>
         <h3>Просмотр всего реестра</h3>
         <a href="{{ route('admin.student.index') }}" class="btn btn-success mb-lg-2">Посмотреть</a>
+            <hr>
         @if(Auth::user()->is_admin)
             <drop-students-component :link="`{{ route('admin.student.deleteAll') }}`"></drop-students-component>
         @endif
@@ -207,7 +210,7 @@
         @if(Auth::user()->is_admin)
             <h3>Упраление админами</h3>
             <h3>Добавить админа</h3>
-            <form action="`{{ route('admin.user.create') }}`" method="post" class="admin__form">
+            <form action="{{ route('admin.user.create') }}" method="post" class="admin__form">
                 @csrf
                 <div class="form-row">
                     <div class="col">
@@ -249,7 +252,7 @@
                 <button type="submit" class="btn btn-primary">Создать</button>
 
             </form>
-
+                <hr>
             <h3>Просмотр всех админов сайта</h3>
             <a href="{{ route('admin.user.index') }}" class="btn btn-success">Просмотр</a>
         @endif

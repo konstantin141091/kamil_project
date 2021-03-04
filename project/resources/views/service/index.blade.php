@@ -51,7 +51,7 @@
             </div>
             <div class="form-row">
                 <div class="col">
-                    <input class="form-control" type="date" name="finish_education" placeholder="Дата окончания обучения" value="{{ old('finish_education') }}"> <br>
+                    <input class="form-control find__form-date" type="date" name="finish_education" placeholder="Дата окончания обучения: " value="{{ old('finish_education') }}"> <br>
                     @if($errors->has('finish_education'))
                         <div class="alert alert-danger" role="alert">
                             @foreach($errors->get('finish_education') as $err)
@@ -60,10 +60,10 @@
                         </div>
                     @endif
                 </div>
-                <div class="col">
-                    <button type="submit" class="btn btn-primary">Найти</button>
-                </div>
+
+
             </div>
+            <button type="submit" class="btn btn-primary">Найти</button>
         </form>
 
 {{--        Результаты поиска--}}

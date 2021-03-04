@@ -9,7 +9,7 @@
     <meta name="description" content="Учебный цент дистанционого обучения Профессионал предоставляем качественные услуги дистанционого обучения по многим профессиям">
     <meta name="keywords" content="профессионал, дистанционое обучение, получить профессию">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>Учебный центр дистанционого обучения | Профессионал</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -46,22 +46,54 @@
 
 
             <div class="container">
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" style="border-color: #ffffff!important;" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
-                        <li class="nav-item header__li">
-                            <a class="nav-link header__link" href="{{ route('index') }}">Главная <span class="sr-only">(current)</span></a>
+                        <li class="nav-item header__li
+                        @if(Route::current()->getName() == 'index')
+                                header__active
+                        @endif
+                        ">
+                            <a class="nav-link header__link" href="{{ route('index') }}">
+                                Главная
+                            </a>
                         </li>
-                        <li class="nav-item header__li">
+                        <li class="nav-item header__li
+                        @if(Route::current()->getName() == 'service.index')
+                                header__active
+                        @endif">
                             <a class="nav-link header__link" href="{{ route('service.index') }}">Поиск в реестре</a>
                         </li>
                         @auth
-                            <li class="nav-item header__li">
+                            <li class="nav-item header__li
+                            @switch(Route::current()->getName())
+                            @case('admin.index')
+                                    header__active
+                            @break
+                            @case('admin.student.index')
+                                    header__active
+                            @break
+                            @case('admin.student.show')
+                                    header__active
+                            @break
+                            @case('admin.student.edit')
+                                    header__active
+                            @break
+                            @case('admin.user.index')
+                                    header__active
+                            @break
+                            @default
+                            @endswitch
+
+                            ">
                                 <a class="nav-link header__link" href="{{ route('admin.index') }}">Панель админа</a>
                             </li>
-                            <li class="nav-item header__li">
+                            <li class="nav-item header__li
+                            @if(Route::current()->getName() == 'admin.instruction')
+                                    header__active
+                            @endif">
                                 <a class="nav-link header__link" href="{{ route('admin.instruction') }}">Инструкция админа</a>
                             </li>
                         @endauth
@@ -71,22 +103,8 @@
                         <!-- Authentication Links -->
                         @guest
                         @else
-                            <li class="nav-item dropdown header__li">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle header__link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Выйти') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
+                            <li class="nav-item header__li">
+                                <a class="nav-link header__link" href="{{ route('logout') }}">Выйти</a>
                             </li>
                         @endguest
                     </ul>

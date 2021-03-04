@@ -119,7 +119,7 @@
                 @endif
 
                 <label for="finish_education">Дата окончания обучения</label>
-                <input type="date" name="finish_education" placeholder="Дата окончания" id="finish_education"
+                <input type="date" name="finish_education" placeholder="Дата окончания: " id="finish_education"
                        @if(old('finish_education'))
                        value="{{ old('finish_education') }}"
                        @else

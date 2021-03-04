@@ -17,8 +17,9 @@ body {
     font-size: 22px;
     font-weight: 500;
     text-transform: uppercase;
+    padding: 0.8rem 1rem;
   }
-  &__li:hover {
+  &__li:hover, &__active {
     background: #0094FF;
   }
   &__phone {
@@ -88,6 +89,9 @@ body {
   &__form:first-child {
     margin-top: 0;
   }
+  &__form-date {
+    width: 50%;
+  }
 
   &__answer {
     & p {
@@ -109,6 +113,10 @@ body {
   }
   & p {
     font-size: 20px;
+
+  }
+  & p span {
+    color: #0094FF;
   }
 }
 
@@ -173,6 +181,24 @@ body {
   & p span {
     color: #0094FF;
   }
+}
+
+.btn {
+  width: 250px;
+  font-size: 20px;
+}
+
+input[type="date"]:before {
+  color: #6c757d;
+  content: attr(placeholder) !important;
+  margin-right: 0.5em;
+}
+input[type="date"]:focus:before {
+  content: '' !important;
+}
+
+.navbar-toggler-icon {
+  background-image: url("svg-editor-image.svg")!important;
 }
 
 @media screen and (max-width: 1225px){
@@ -242,12 +268,31 @@ body {
     font-size: 26px;
     line-height: 36px;
   }
+  #navbarNav {
+    margin-top: 10px;
+  }
+  .students {
+    &__buttons-group {
+      flex-direction: column;
+      align-items: center;
+    }
+    &__buttons-group a {
+      margin-right: 0;
+      margin-bottom: 10px;
+    }
+  }
 }
 
 @media screen and (max-width: 560px){
   .preview h1 {
     top: 10%;
     font-size: 20px;
+  }
+}
+
+@media screen and (max-width: 513px){
+  .find__form-date {
+    width: 100%;
   }
 }
 
@@ -265,6 +310,10 @@ body {
     &__answer p {
       font-size: 16px;
     }
+  }
+
+  .form-row {
+    display: block;
   }
 }
 

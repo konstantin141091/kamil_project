@@ -8,14 +8,29 @@
         @if(session('success'))
             <div class="alert alert-success" role="alert">{{ session('success') }}</div>
         @endif
+        <h3>Поиск в реестре</h3>
+        <form action="{{ route('admin.student.find') }}" class="admin__form mb-lg-2" method="post">
+                @csrf
+                <div class="form-row mb-lg-2">
+                    <div class="col">
+                        <input class="form-control" type="text" name="protocol_find" placeholder="Номер протокола" value="{{ old('protocol_find') }}">
+                    </div>
+                    <div class="col">
+                        <input class="form-control" type="text" name="surname_find" placeholder="Фамилия" value="{{ old('surname_find') }}">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary mt-3">Поиск</button>
+            </form>
+        <hr>
         <h3>Просмотр всего реестра</h3>
         <div class="students">
             @foreach($students as $item)
                 <p>
-                    Имя: <span>{{ $item->name }}</span>
-                    Фамилия: <span>{{ $item->surname }}</span>
-                    Отчество: <span>{{ $item->patronymic }}</span>
-                    Протокол: <span>{{ $item->protocol }}</span>
+                    {{ $item->surname }}
+                    {{ $item->name }}
+                    {{ $item->patronymic }}
+                    <span>Протокол:</span> {{ $item->protocol }}
+                    <span>Дата окончания:</span> {{ $item->finish_education }}
                 </p>
             <div class="students__buttons-group flex">
                 <a href="{{ route('admin.student.show', $item->id) }}" class="btn btn-primary">Подробнее</a>

@@ -4,9 +4,19 @@ namespace App\Imports;
 
 use App\Models\StudentModel;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class ServiceImport implements ToModel
+use Maatwebsite\Excel\Validators\Failure;
+use Maatwebsite\Excel\Concerns\Importable;
+use Maatwebsite\Excel\Concerns\SkipsOnFailure;
+use Maatwebsite\Excel\Concerns\WithValidation;
+use Maatwebsite\Excel\Concerns\WithCalculatedFormulas;
+
+use \PhpOffice\PhpSpreadsheet\Shared\Date;
+
+class ServiceImport implements ToModel, WithHeadingRow, SkipsOnFailure, WithValidation, WithCalculatedFormulas
 {
+    use Importable;
     /**
     * @param array $row
     *
@@ -14,23 +24,46 @@ class ServiceImport implements ToModel
     */
     public function model(array $row)
     {
-        $date = date_create($row[7]);
+        if (is_string($row['data'])) {
+            $date = date_create($row['data']);
+        } else {
+            $date = Date::excelToDateTimeObject($row['data']);
+        }
+//        $date = date_create($row['data']);
 
-        return new StudentModel([
-            'protocol'     => $row[0],
-            'surname'    => $row[1],
-            'name' => $row[2],
-            'patronymic' => $row[3],
-            'discharge' => $row[4],
-            'evidence' => $row[5],
-            'certificates' => $row[6],
-            'finish_education' => date_format($date, 'Y-m-d'),
-            'qualification' => $row[8],
-            'source' => $row[9],
-            'address' => $row[10],
-            'phone' => $row[11],
-            'sum' => $row[12],
-            'comment' => $row[13],
+        $student = new StudentModel([
+            'protocol'     => $row['protokol'],
+            'surname'    => $row['familiya'],
+            'name' => $row['imya'],
+            'patronymic' => $row['otcestvo'],
+            'discharge' => $row['razryad'],
+            'evidence' => $row['svidetelstvo'],
+            'certificates' => $row['udostoverenie'],
+            'finish_education' => $date,
+            'qualification' => $row['kvalifikaciya'],
+            'source' => $row['istocnik'],
+            'address' => $row['adres'],
+            'phone' => $row['telefon'],
+            'sum' => $row['summa'],
+            'comment' => $row['kommentarii'],
         ]);
+
+        return $student;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'protokol' => 'required',
+            'familiya' => 'required',
+            'imya' => 'required',
+            'otcestvo' => 'required',
+            'data' => 'required',
+        ];
+    }
+
+    public function onFailure(Failure ...$failures)
+    {
+        // Handle the failures how you'd like.
     }
 }

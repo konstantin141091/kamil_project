@@ -21,7 +21,7 @@ class UserController extends Controller
         ]);
         try {
             if ($user->save()) {
-                return back()->with('success', 'Пользователен успешно создан');
+                return back()->with('success', 'Новый администратор успешно создан');
             } else {
                 return back()->with('error', 'Ошибка при создание пользователя. Повторите еще раз.');
             }
