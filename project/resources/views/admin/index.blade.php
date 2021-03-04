@@ -10,12 +10,12 @@
         @endif
 
 {{--        Работа с реестром--}}
-        <h3>Одиночное добавление записи в реестр</h3>
+        <h3 class="h3-mobile">Одиночное добавление записи в реестр</h3>
         <form action="{{ route('admin.student.create') }}" method="post" class="admin__form">
             @csrf
             <div class="form-row">
                 <div class="col">
-                    <input type="text" class="form-control" placeholder="Протокол" name="protocol" value="{{ old('protocol') }}">
+                    <input type="text" class="form-control" placeholder="№ Протокола" name="protocol" value="{{ old('protocol') }}">
                     @if($errors->has('protocol'))
                         <div class="alert alert-danger" role="alert">
                             @foreach($errors->get('protocol') as $err)
@@ -168,38 +168,46 @@
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-primary">Добавить</button>
+            <div class="form-btn"><button type="submit" class="btn btn-primary">Добавить</button></div>
         </form>
             <hr>
-        <h3>Добавление в реестр записей таблицей excel</h3>
+        <h3 class="h3-mobile">Добавление в реестр записей таблицей excel</h3>
 
         <form action="{{ route('admin.student.import') }}" method="post" enctype="multipart/form-data" class="form-group">
             @csrf
             <label for="students">Загрузите файл excel соответствующий требованиям загрузки</label>
             <input type="file" name="students" class="form-control-file mb-lg-2" id="students" style="font-size: 20px">
-            <button type="submit" class="btn btn-primary mt-3">Загрузить</button>
+            <div class="form-btn">
+                <button type="submit" class="btn btn-primary mt-3">Загрузить</button>
+            </div>
         </form>
             <hr>
 
-        <h3>Выгрузить записи таблицей excel</h3>
-        <a href="{{ route('admin.student.export') }}" class="btn btn-success mb-lg-2">Выгрузить</a>
+        <h3 class="h3-mobile">Выгрузить записи таблицей excel</h3>
+            <div class="form-btn">
+                <a href="{{ route('admin.student.export') }}" class="btn btn-success mb-lg-2">Выгрузить</a>
+            </div>
             <hr>
-        <h3>Поиск в реестре</h3>
+        <h3 class="h3-mobile">Поиск в реестре</h3>
         <form action="{{ route('admin.student.find') }}" class="admin__form mb-lg-2" method="post">
             @csrf
             <div class="form-row mb-lg-2">
                 <div class="col">
-                    <input class="form-control" type="text" name="protocol_find" placeholder="Номер протокола" value="{{ old('protocol_find') }}">
+                    <input class="form-control" type="text" name="protocol_find" placeholder="№ Протокола" value="{{ old('protocol_find') }}">
                 </div>
                 <div class="col">
                     <input class="form-control" type="text" name="surname_find" placeholder="Фамилия" value="{{ old('surname_find') }}">
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary mt-3">Поиск</button>
+            <div class="form-btn">
+                <button type="submit" class="btn btn-primary mt-3">Поиск</button>
+            </div>
         </form>
             <hr>
-        <h3>Просмотр всего реестра</h3>
-        <a href="{{ route('admin.student.index') }}" class="btn btn-success mb-lg-2">Посмотреть</a>
+        <h3 class="h3-mobile">Просмотр всего реестра</h3>
+            <div class="form-btn">
+                <a href="{{ route('admin.student.index') }}" class="btn btn-success mb-lg-2">Посмотреть</a>
+            </div>
             <hr>
         @if(Auth::user()->is_admin)
             <drop-students-component :link="`{{ route('admin.student.deleteAll') }}`"></drop-students-component>
@@ -208,8 +216,8 @@
 
 {{--        Работа с админами--}}
         @if(Auth::user()->is_admin)
-            <h3>Упраление админами</h3>
-            <h3>Добавить админа</h3>
+            <h3 class="h3-mobile">Упраление админами</h3>
+            <h3 class="h3-mobile">Добавить админа</h3>
             <form action="{{ route('admin.user.create') }}" method="post" class="admin__form">
                 @csrf
                 <div class="form-row">
@@ -249,12 +257,15 @@
                         <input type="password" class="form-control" name="password_confirmation" placeholder="Повторите пароль" value="{{ old('password') }}">
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Создать</button>
-
+                <div class="form-btn">
+                    <button type="submit" class="btn btn-primary">Создать</button>
+                </div>
             </form>
                 <hr>
-            <h3>Просмотр всех админов сайта</h3>
-            <a href="{{ route('admin.user.index') }}" class="btn btn-success">Просмотр</a>
+            <h3 class="h3-mobile">Просмотр всех админов сайта</h3>
+            <div class="form-btn">
+                <a href="{{ route('admin.user.index') }}" class="btn btn-success">Просмотр</a>
+            </div>
         @endif
     </div>
 @endsection

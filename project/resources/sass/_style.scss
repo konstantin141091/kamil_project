@@ -201,6 +201,10 @@ input[type="date"]:focus:before {
   background-image: url("svg-editor-image.svg")!important;
 }
 
+.modal-footer {
+  justify-content: center!important;
+}
+
 @media screen and (max-width: 1225px){
   .preview h1 {
     font-size: 40px;
@@ -280,6 +284,14 @@ input[type="date"]:focus:before {
       margin-right: 0;
       margin-bottom: 10px;
     }
+  }
+
+  .form-btn {
+    display: flex;
+    justify-content: center;
+  }
+  .h3-mobile {
+    text-align: center;
   }
 }
 

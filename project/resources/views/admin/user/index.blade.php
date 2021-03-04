@@ -8,7 +8,7 @@
         @if(session('success'))
             <div class="alert alert-success" role="alert">{{ session('success') }}</div>
         @endif
-        <h3>Просмотр всех админов</h3>
+        <h3 class="h3-mobile">Просмотр всех админов</h3>
         <div class="students">
             @foreach($users as $item)
                 <p>

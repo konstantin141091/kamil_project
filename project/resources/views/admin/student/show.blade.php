@@ -8,7 +8,7 @@
         @if(session('success'))
             <div class="alert alert-success" role="alert">{{ session('success') }}</div>
         @endif
-        <h3>Данные записи студента</h3>
+        <h3 class="h3-mobile">Данные записи студента</h3>
        <div class="find__answer">
            <p>Протокол: <span>{{ $student->protocol }}</span></p>
            <p>Имя: <span>{{ $student->name }}</span></p>

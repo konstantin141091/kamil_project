@@ -8,7 +8,7 @@
         @if(session('success'))
             <div class="alert alert-success" role="alert">{{ session('success') }}</div>
         @endif
-        <h3>Редактировать запись студента</h3>
+        <h3 class="h3-mobile">Редактировать запись студента</h3>
         <div class="find">
             <form action="{{ route('admin.student.update', $student->id) }}" method="post" class="find__form">
                 @csrf
@@ -223,14 +223,18 @@
                     </div>
                 @endif
 
+                <div class="form-btn">
+                    <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+                </div>
 
-                <button type="submit" class="btn btn-primary">Сохранить изменения</button>
             </form>
             <hr>
         </div>
         <form action="{{ route('admin.student.delete', $student->id) }}" method="post">
             @csrf
-            <button type="submit" class="btn btn-danger">Удалить</button>
+            <div class="form-btn">
+                <button type="submit" class="btn btn-danger">Удалить</button>
+            </div>
         </form>
     </div>
 @endsection

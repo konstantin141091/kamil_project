@@ -39,7 +39,7 @@
                     @endif
                 </div>
                 <div class="col">
-                    <input class="form-control" type="text" name="protocol" placeholder="Номер протокола" value="{{ old('protocol') }}"> <br>
+                    <input class="form-control" type="text" name="protocol" placeholder="№ протокола" value="{{ old('protocol') }}"> <br>
                     @if($errors->has('protocol'))
                         <div class="alert alert-danger" role="alert">
                             @foreach($errors->get('protocol') as $err)
@@ -63,7 +63,9 @@
 
 
             </div>
-            <button type="submit" class="btn btn-primary">Найти</button>
+            <div class="form-btn">
+                <button type="submit" class="btn btn-primary">Найти</button>
+            </div>
         </form>
 
 {{--        Результаты поиска--}}

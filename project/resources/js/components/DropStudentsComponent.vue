@@ -1,8 +1,9 @@
 <template>
     <div>
-        <h3>Удалить все записи из реестра. Эта операция не обратима!!!</h3>
-        <button class="btn btn-danger" @click="openModel">УДАЛИТЬ ВЕСЬ РЕЕСТР</button>
-
+        <h3 class="h3-mobile">Удалить все записи из реестра. Эта операция не обратима!!!</h3>
+        <div class="form-btn">
+            <button class="btn btn-danger" @click="openModel">УДАЛИТЬ ВЕСЬ РЕЕСТР</button>
+        </div>
         <div v-show="show">
             <div class="modal d-block" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
