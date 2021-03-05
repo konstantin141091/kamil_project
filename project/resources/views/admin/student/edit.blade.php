@@ -124,7 +124,8 @@
                        value="{{ old('finish_education') }}"
                        @else
                        value="{{ $student->finish_education }}"
-                        @endif>
+                        @endif
+                       onchange="this.className=(this.value!=''?'has-value':'')">
                 @if($errors->has('finish_education'))
                     <div class="alert alert-danger" role="alert">
                         @foreach($errors->get('finish_education') as $err)
