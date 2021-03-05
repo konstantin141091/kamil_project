@@ -188,13 +188,9 @@ body {
   font-size: 20px;
 }
 
-input[type="date"]:before {
+input[type="date"]:not(.has-value):before{
   color: #6c757d;
-  content: attr(placeholder) !important;
-  margin-right: 0.5em;
-}
-input[type="date"]:focus:before {
-  content: '' !important;
+  content: attr(placeholder);
 }
 
 .navbar-toggler-icon {
@@ -229,6 +225,9 @@ input[type="date"]:focus:before {
 }
 
 @media screen and (max-width: 991px){
+  #navbarNav {
+    margin-top: 10px;
+  }
   .header {
     padding: 0.5rem 1rem;
     &__top {
@@ -271,9 +270,6 @@ input[type="date"]:focus:before {
     top: 15%;
     font-size: 26px;
     line-height: 36px;
-  }
-  #navbarNav {
-    margin-top: 10px;
   }
   .students {
     &__buttons-group {
@@ -336,7 +332,7 @@ input[type="date"]:focus:before {
     }
   }
   .header {
-    padding: 0.8rem 0.5rem;
+    padding: 0.8rem 15px;
   }
   .logo p {
     font-size: 18px;
