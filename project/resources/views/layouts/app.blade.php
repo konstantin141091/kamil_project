@@ -104,7 +104,11 @@
                         @guest
                         @else
                             <li class="nav-item header__li">
-                                <a class="nav-link header__link" href="{{ route('logout') }}">Выйти</a>
+                                <a class="nav-link header__link" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">Выйти</a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
                             </li>
                         @endguest
                     </ul>

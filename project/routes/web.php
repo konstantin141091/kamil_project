@@ -19,8 +19,8 @@ use Illuminate\Support\Facades\Route;
 Route::group([
     'namespace' => 'Auth',
 ], function() {
-    Route::get('login', 'LoginController@showLoginForm')->name('login');
-    Route::post('login', 'LoginController@login');
+    Route::get('myLogin21', 'LoginController@showLoginForm')->name('login');
+    Route::post('myLogin21', 'LoginController@login');
     Route::post('logout', 'LoginController@logout')->name('logout');
 //    Route::get('register', 'RegisterController@showRegistrationForm')->name('register');
 //    Route::post('register', 'RegisterController@register');
@@ -44,7 +44,7 @@ Route::group([
 
 // Роуты для работы админа
 Route::group([
-    'prefix' => 'admin',
+    'prefix' => 'myCabinet21',
     'as' => 'admin.',
     'middleware' => 'auth',
     'namespace' => 'Admin',
