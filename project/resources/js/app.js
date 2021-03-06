@@ -5,6 +5,7 @@
  */
 
 require('./bootstrap');
+require('./inputDataPlaceholder');
 
 window.Vue = require('vue');
 

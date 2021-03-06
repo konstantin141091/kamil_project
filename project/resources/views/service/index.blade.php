@@ -51,7 +51,9 @@
             </div>
             <div class="form-row">
                 <div class="col">
-                    <input class="form-control find__form-date" type="date" name="finish_education" placeholder="Дата окончания обучения: " value="{{ old('finish_education') }}" onchange="this.className=(this.value!=''?'form-control has-value find__form-date':'form-control find__form-date')"> <br>
+                    <input class="form-control find__form-date placeholder" type="date" name="finish_education"
+                           placeholder="Дата окончания обучения: " value="{{ old('finish_education') }}"
+                           onchange="this.className=(this.value!=''?'form-control has-value find__form-date placeholder':'form-control find__form-date placeholder')"> <br>
                     @if($errors->has('finish_education'))
                         <div class="alert alert-danger" role="alert">
                             @foreach($errors->get('finish_education') as $err)

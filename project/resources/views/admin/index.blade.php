@@ -91,7 +91,7 @@
                     @endif
                 </div>
                 <div class="col">
-                    <input type="date" class="form-control"  placeholder="Дата окончания: " name="finish_education" value="{{ old('finish_education') }}" onchange="this.className=(this.value!=''?'form-control has-value':'form-control')">
+                    <input type="date" class="form-control placeholder"  placeholder="Дата окончания: " name="finish_education" value="{{ old('finish_education') }}" onchange="this.className=(this.value!=''?'form-control placeholder has-value':'form-control placeholder')">
                     @if($errors->has('finish_education'))
                         <div class="alert alert-danger" role="alert">
                             @foreach($errors->get('finish_education') as $err)
