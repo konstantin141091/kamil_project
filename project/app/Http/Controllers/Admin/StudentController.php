@@ -51,12 +51,16 @@ class StudentController extends Controller
 
     }
 
-    public function update(Request $request, StudentModel $studentModel) {
+    public function update($id, Request $request, StudentModel $studentModel) {
         $request->flash();
         $this->validate($request, StudentModel::rules($studentModel), [], StudentModel::attributesName());
+        if (StudentModel::checkStudent($request, $studentModel)) {
+            return redirect()->back()->with('error', 'Студент с такими данными уже есть.');
+        }
         try {
-            $studentModel->fill($request->all());
-            if ($studentModel->save()) {
+            $student = $studentModel::query()->find($id);
+            $student->fill($request->all());
+            if ($student->update()) {
                 return back()->with('success', 'Изменения сохранены');
             } else {
                 return back()->with('error', 'Не удалось обновить данные. Попробуйте еще раз.');
@@ -64,7 +68,6 @@ class StudentController extends Controller
         } catch (\Exception $exception) {
             return back()->with('error', 'Сбой базы данных. Попробуйте еще раз.');
         }
-
     }
 
     public function delete($id) {
@@ -85,6 +88,11 @@ class StudentController extends Controller
         $request->flash();
         $object = new StudentModel();
         $this->validate($request, StudentModel::rules($object), [], StudentModel::attributesName());
+
+        if (StudentModel::checkStudent($request, $object)) {
+            return redirect()->back()->with('error', 'Студент с такими данными уже есть.');
+        }
+
         try {
             $result = $object->fill($request->all())->save();
             if ($result) {

@@ -108,6 +108,13 @@
                                 запись отсутствует
                             @endif
                                 </span></p>
+                    <p>Квалификация: <span>
+                            @if($item->qualification)
+                                {{ $item->qualification }}
+                            @else
+                                запись отсутствует
+                            @endif
+                                </span></p>
 
                     <hr>
                 @endforeach

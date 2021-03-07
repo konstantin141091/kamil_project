@@ -11,10 +11,11 @@ use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\SkipsOnFailure;
 use Maatwebsite\Excel\Concerns\WithValidation;
 use Maatwebsite\Excel\Concerns\WithCalculatedFormulas;
+use Maatwebsite\Excel\Concerns\WithBatchInserts;
 
 use \PhpOffice\PhpSpreadsheet\Shared\Date;
 
-class ServiceImport implements ToModel, WithHeadingRow, SkipsOnFailure, WithValidation, WithCalculatedFormulas
+class ServiceImport implements ToModel, WithHeadingRow, SkipsOnFailure, WithValidation, WithCalculatedFormulas, WithBatchInserts
 {
     use Importable;
     /**
@@ -28,6 +29,14 @@ class ServiceImport implements ToModel, WithHeadingRow, SkipsOnFailure, WithVali
             $date = date_create($row['data']);
         } else {
             $date = Date::excelToDateTimeObject($row['data']);
+        }
+
+        // проверка на существование такой записи
+        if (StudentModel::query()->where('protocol', '=', $row['protokol'])
+            ->where('surname', '=', $row['familiya'])->where('name', '=', $row['imya'])
+            ->where('patronymic', '=', $row['otcestvo'])
+            ->where('finish_education', '=', $date)->first()) {
+            return null;
         }
 
         $student = new StudentModel([
@@ -64,5 +73,10 @@ class ServiceImport implements ToModel, WithHeadingRow, SkipsOnFailure, WithVali
     public function onFailure(Failure ...$failures)
     {
         // Handle the failures how you'd like.
+    }
+
+    public function batchSize(): int
+    {
+        return 500;
     }
 }

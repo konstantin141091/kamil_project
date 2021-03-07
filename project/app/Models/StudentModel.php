@@ -32,7 +32,7 @@ class StudentModel extends Model
             'name' => "required|max:35",
             'surname' => 'required|max:35',
             'patronymic' => 'required|max:35',
-            'finish_education' => '',
+            'finish_education' => 'required',
             'discharge' => 'max:20',
             'certificates' => 'max:15',
             'evidence' => 'max:15',
@@ -68,5 +68,15 @@ class StudentModel extends Model
     public static function finishEducation($finish_education) {
         $date = date_create($finish_education);
         return date_format($date, 'd.m.Y');
+    }
+
+    public static function checkStudent($request, StudentModel $studentModel) {
+        $student = $studentModel::query()->where('protocol', '=', $request->protocol)
+            ->where('surname', '=', $request->surname)->where('name', '=', $request->name)
+            ->where('patronymic', '=', $request->patronymic)
+            ->where('finish_education', '=', $request->finish_education)->first();
+        if ($student) {
+            return true;
+        } return false;
     }
 }
