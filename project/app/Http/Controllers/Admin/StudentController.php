@@ -112,8 +112,14 @@ class StudentController extends Controller
         } else {
             try {
                 $path = $request->file('students')->store('storage');
-                Excel::import(new ServiceImport, $path);
-                return redirect()->back()->with('success', 'Данные успешно загруженны');
+                $import = new ServiceImport();
+                $import->import($path);
+                if ($import->repeat) {
+                    $msg = 'Данные успешно загруженны, но при загрузке были повторы с уже существующими записями.';
+                } else {
+                    $msg = 'Данные успешно загруженны.';
+                }
+                return redirect()->back()->with('success', $msg);
             } catch (\Exception $exception) {
                 return redirect()->back()->with('error', 'Сбой базы данных. Попробуйте еще раз');
             }

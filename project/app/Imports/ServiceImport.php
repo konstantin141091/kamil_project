@@ -11,11 +11,10 @@ use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\SkipsOnFailure;
 use Maatwebsite\Excel\Concerns\WithValidation;
 use Maatwebsite\Excel\Concerns\WithCalculatedFormulas;
-use Maatwebsite\Excel\Concerns\WithBatchInserts;
 
 use \PhpOffice\PhpSpreadsheet\Shared\Date;
 
-class ServiceImport implements ToModel, WithHeadingRow, SkipsOnFailure, WithValidation, WithCalculatedFormulas, WithBatchInserts
+class ServiceImport implements ToModel, WithHeadingRow, SkipsOnFailure, WithValidation, WithCalculatedFormulas
 {
     use Importable;
     /**
@@ -23,6 +22,8 @@ class ServiceImport implements ToModel, WithHeadingRow, SkipsOnFailure, WithVali
     *
     * @return \Illuminate\Database\Eloquent\Model|null
     */
+    public $repeat = false;
+
     public function model(array $row)
     {
         if (is_string($row['data'])) {
@@ -36,6 +37,7 @@ class ServiceImport implements ToModel, WithHeadingRow, SkipsOnFailure, WithVali
             ->where('surname', '=', $row['familiya'])->where('name', '=', $row['imya'])
             ->where('patronymic', '=', $row['otcestvo'])
             ->where('finish_education', '=', $date)->first()) {
+            $this->repeat = true;
             return null;
         }
 
@@ -73,10 +75,5 @@ class ServiceImport implements ToModel, WithHeadingRow, SkipsOnFailure, WithVali
     public function onFailure(Failure ...$failures)
     {
         // Handle the failures how you'd like.
-    }
-
-    public function batchSize(): int
-    {
-        return 500;
     }
 }
