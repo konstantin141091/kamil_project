@@ -119,13 +119,13 @@
                 @endif
 
                 <label for="finish_education">Дата окончания обучения</label>
-                <input type="date" name="finish_education" placeholder="Дата окончания: " id="finish_education"
+                <input type="date" id="inputDate" name="finish_education" placeholder="Дата окончания: " id="finish_education"
                        @if(old('finish_education'))
                        value="{{ old('finish_education') }}"
                        @else
                        value="{{ $student->finish_education }}"
                         @endif
-                       onchange="this.className=(this.value!=''?'has-value':'')">
+                       onchange="this.className=(this.value!=''?'has-value datechk':'datechk')">
                 @if($errors->has('finish_education'))
                     <div class="alert alert-danger" role="alert">
                         @foreach($errors->get('finish_education') as $err)
