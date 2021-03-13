@@ -6,6 +6,7 @@
 
 require('./bootstrap');
 require('./inputDataPlaceholder');
+import Datepicker from 'vuejs-datepicker';
 
 window.Vue = require('vue');
 
@@ -31,4 +32,12 @@ Vue.component('drop-students-component', require('./components/DropStudentsCompo
 
 const app = new Vue({
     el: '#app',
+    data() {
+        return {
+            ru: vdp_translation_ru.js
+        }
+    },
+    components: {
+        Datepicker,
+    }
 });

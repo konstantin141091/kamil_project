@@ -69,12 +69,19 @@ class StudentModel extends Model
         $date = date_create($finish_education);
         return date_format($date, 'd.m.Y');
     }
+    public static function finishEducationForDB($finish_education) {
+        $date = date_create($finish_education);
+        $date = date_format($date, 'Y.m.d');
+        return $date;
+    }
 
     public static function checkStudent($request, StudentModel $studentModel) {
+        $date = date_create($request->finish_education);
+        $date = date_format($date, 'Y.m.d');
         $student = $studentModel::query()->where('protocol', '=', $request->protocol)
             ->where('surname', '=', $request->surname)->where('name', '=', $request->name)
             ->where('patronymic', '=', $request->patronymic)
-            ->where('finish_education', '=', $request->finish_education)->first();
+            ->where('finish_education', '=', $date)->first();
         if ($student) {
             return true;
         } return false;

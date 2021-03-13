@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\StudentModel;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
+use Jenssegers\Agent\Agent;
 
 class StudentController extends Controller
 {
@@ -42,8 +43,11 @@ class StudentController extends Controller
     public function edit($id) {
         try {
             $student = StudentModel::query()->find($id);
+            $agent = new Agent();
+            $browser = $agent->browser();
             return view('admin.student.edit', [
                 'student' => $student,
+                'browser' => $browser,
             ]);
         } catch (\Exception $exception) {
             return back()->with('error', 'Сбой базы данных. Попробуйте еще раз');
@@ -57,9 +61,12 @@ class StudentController extends Controller
         if (StudentModel::checkStudent($request, $studentModel)) {
             return redirect()->back()->with('error', 'Студент с такими данными уже есть.');
         }
+
         try {
             $student = $studentModel::query()->find($id);
             $student->fill($request->all());
+            $date = StudentModel::finishEducationForDB($request->finish_education);
+            $student->finish_education = $date;
             if ($student->update()) {
                 return back()->with('success', 'Изменения сохранены');
             } else {
@@ -94,12 +101,17 @@ class StudentController extends Controller
         }
 
         try {
-            $result = $object->fill($request->all())->save();
+            $date = StudentModel::finishEducationForDB($request->finish_education);
+            $object->fill($request->all());
+            $object->finish_education = $date;
+            $result = $object->save();
+
             if ($result) {
                 return redirect()->back()->with('success', 'Запись успешно добавлена');
             } else {
                 return redirect()->back()->with('error', 'Не удалось добавить запись в базу. Попробуйте еще раз');
             }
+
         } catch (\Exception $exception) {
             return redirect()->back()->with('error', 'Сбой базы данных. Попробуйте еще раз');
         }

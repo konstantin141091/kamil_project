@@ -3,12 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Jenssegers\Agent\Agent;
 
 class AdminController extends Controller
 {
     public function index() {
-
-        return view('admin.index');
+        $agent = new Agent();
+        $browser = $agent->browser();
+        return view('admin.index', [
+            'browser' => $browser,
+        ]);
     }
 
     public function instruction() {

@@ -81,7 +81,8 @@
             </div>
             <div class="form-row">
                 <div class="col">
-                    <input type="text" class="form-control"  placeholder="Удостоверение" name="certificates" value="{{ old('certificates') }}">
+                    <input type="text" class="form-control"  placeholder="Удостоверение" name="certificates"
+                           value="{{ old('certificates') }}">
                     @if($errors->has('certificates'))
                         <div class="alert alert-danger" role="alert">
                             @foreach($errors->get('certificates') as $err)
@@ -91,7 +92,17 @@
                     @endif
                 </div>
                 <div class="col">
-                    <input type="date" id="inputDate" class="form-control placeholder"  placeholder="Дата окончания: " name="finish_education" value="{{ old('finish_education') }}" onchange="this.className=(this.value!=''?'form-control placeholder has-value':'form-control placeholder')">
+                    @if($browser != 'Safari')
+                    <input type="date" id="inputDate" class="form-control placeholder"  placeholder="Дата окончания: "
+                           name="finish_education" value="{{ old('finish_education') }}"
+                           onchange="this.className=(this.value!=''?'form-control placeholder has-value':'form-control placeholder')">
+                    @else
+                    <datepicker name="finish_education" placeholder="Дата окончания" format="yyyy-MM-dd"
+                                value="{{ old('finish_education') }}"
+                                input-class="form-control back-fff" :language="ru">
+
+                    </datepicker>
+                    @endif
                     @if($errors->has('finish_education'))
                         <div class="alert alert-danger" role="alert">
                             @foreach($errors->get('finish_education') as $err)

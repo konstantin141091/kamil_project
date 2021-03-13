@@ -119,13 +119,25 @@
                 @endif
 
                 <label for="finish_education">Дата окончания обучения</label>
-                <input type="date" id="inputDate" name="finish_education" placeholder="Дата окончания: " id="finish_education"
+                @if($browser != 'Safari')
+                <input type="date" name="finish_education" placeholder="Дата окончания: " id="finish_education"
                        @if(old('finish_education'))
                        value="{{ old('finish_education') }}"
                        @else
                        value="{{ $student->finish_education }}"
                         @endif
                        onchange="this.className=(this.value!=''?'has-value datechk':'datechk')">
+                @else
+                <datepicker name="finish_education" placeholder="Дата окончания" format="yyyy-MM-dd"
+                            @if(old('finish_education'))
+                            value="{{ old('finish_education') }}"
+                            @else
+                            value="{{ $student->finish_education }}"
+                            @endif
+                            input-class="back-fff mb-4" :language="ru">
+
+                </datepicker>
+                @endif
                 @if($errors->has('finish_education'))
                     <div class="alert alert-danger" role="alert">
                         @foreach($errors->get('finish_education') as $err)

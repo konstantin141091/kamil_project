@@ -51,9 +51,17 @@
             </div>
             <div class="form-row">
                 <div class="col">
+                    @if($browser != 'Safari')
                     <input id="inputDate" class="form-control find__form-date placeholder datechk" type="date" name="finish_education"
                            placeholder="Дата окончания обучения: " value="{{ old('finish_education') }}"
-                           onchange="this.className=(this.value!=''?'form-control has-value find__form-date placeholder':'form-control find__form-date placeholder')"> <br>
+                           onchange="this.className=(this.value!=''?'form-control has-value find__form-date placeholder':
+                           'form-control find__form-date placeholder')"> <br>
+                    @else
+                    <datepicker name="finish_education" placeholder="Дата окончания" format="dd-MM-yyyy" value="{{ old('finish_education') }}"
+                                input-class="form-control find__form-date back-fff mb-4" :language="ru">
+
+                    </datepicker>
+                    @endif
                     @if($errors->has('finish_education'))
                         <div class="alert alert-danger" role="alert">
                             @foreach($errors->get('finish_education') as $err)
@@ -62,8 +70,6 @@
                         </div>
                     @endif
                 </div>
-
-
             </div>
             <div class="form-btn">
                 <button type="submit" class="btn btn-primary">Найти</button>
