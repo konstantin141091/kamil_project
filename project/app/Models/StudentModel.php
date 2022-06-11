@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
+
 //use Illuminate\Validation\Rule;
 
 class StudentModel extends Model
@@ -26,7 +28,10 @@ class StudentModel extends Model
         'sum',
     ];
 
-    public static function rules()
+    /**
+     * @return array
+     */
+    public static function rules() :array
     {
         return [
             'name' => "required|max:35",
@@ -46,7 +51,11 @@ class StudentModel extends Model
         ];
     }
 
-    public static function attributesName() {
+    /**
+     * @return array
+     */
+    public static function attributesName() : array
+    {
         return [
             'name' => "Имя",
             'surname' => 'Фамилия',
@@ -65,23 +74,44 @@ class StudentModel extends Model
         ];
     }
 
-    public static function finishEducation($finish_education) {
+    /**
+     * @param string $finish_education
+     * @return string
+     */
+    public static function finishEducation(string $finish_education) : string
+    {
         $date = date_create($finish_education);
         return date_format($date, 'd.m.Y');
     }
-    public static function finishEducationForDB($finish_education) {
+
+
+    /**
+     * @param string $finish_education
+     * @return string
+     */
+    public function finishEducationForDB(string $finish_education) : string
+    {
         $date = date_create($finish_education);
         $date = date_format($date, 'Y.m.d');
         return $date;
     }
 
-    public static function checkStudent($request, StudentModel $studentModel) {
-        $date = date_create($request->finish_education);
+    /**
+     * @param Request $request
+     * @return bool
+     */
+    public function checkStudent(Request $request) : bool
+    {
+        $date = date_create($request->input('finish_education'));
         $date = date_format($date, 'Y.m.d');
-        $student = $studentModel::query()->where('protocol', '=', $request->protocol)
-            ->where('surname', '=', $request->surname)->where('name', '=', $request->name)
-            ->where('patronymic', '=', $request->patronymic)
-            ->where('finish_education', '=', $date)->first();
+        $student = self::query()
+            ->where('protocol', '=', $request->input('protocol'))
+            ->where('surname', '=', $request->input('surname'))
+            ->where('name', '=', $request->input('name'))
+            ->where('patronymic', '=', $request->input('patronymic'))
+            ->where('finish_education', '=', $date)
+            ->where('id', '!=', $this->id)
+            ->first();
         if ($student) {
             return true;
         } return false;

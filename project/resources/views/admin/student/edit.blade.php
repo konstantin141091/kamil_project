@@ -10,7 +10,7 @@
         @endif
         <h3 class="h3-mobile">Редактировать запись студента</h3>
         <div class="find">
-            <form action="{{ route('admin.student.update', $student->id) }}" method="post" class="find__form">
+            <form action="{{ route('admin.student.update', $student) }}" method="post" class="find__form">
                 @csrf
 
                 <label for="protocol">Протокол</label>

@@ -13,6 +13,9 @@ use Jenssegers\Agent\Agent;
 
 class StudentController extends Controller
 {
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
     public function index() {
         try {
             $students = StudentModel::paginate(10);
@@ -27,6 +30,10 @@ class StudentController extends Controller
         }
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
     public function show($id) {
         try {
             $student = StudentModel::query()->find($id);
@@ -40,6 +47,10 @@ class StudentController extends Controller
 
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
     public function edit($id) {
         try {
             $student = StudentModel::query()->find($id);
@@ -55,18 +66,21 @@ class StudentController extends Controller
 
     }
 
-    public function update($id, Request $request, StudentModel $studentModel) {
+    /**
+     * @param Request $request
+     * @param StudentModel $student
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function update(Request $request, StudentModel $student) {
         $request->flash();
-        $this->validate($request, StudentModel::rules($studentModel), [], StudentModel::attributesName());
-        if (StudentModel::checkStudent($request, $studentModel)) {
+        $this->validate($request, StudentModel::rules($student), [], StudentModel::attributesName());
+        if ($student->checkStudent($request)) {
             return redirect()->back()->with('error', 'Студент с такими данными уже есть.');
         }
-
         try {
-            $student = $studentModel::query()->find($id);
             $student->fill($request->all());
-            $date = StudentModel::finishEducationForDB($request->finish_education);
-            $student->finish_education = $date;
+            $student->finish_education = $student->finishEducationForDB($request->input('finish_education'));
             if ($student->update()) {
                 return back()->with('success', 'Изменения сохранены');
             } else {
@@ -77,6 +91,10 @@ class StudentController extends Controller
         }
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function delete($id) {
         try {
             if (DB::table('students')->where('id', '=', $id)->delete()) {
@@ -91,17 +109,23 @@ class StudentController extends Controller
     }
 
     // Добавление одиночной записи
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function create(Request $request) {
         $request->flash();
         $object = new StudentModel();
         $this->validate($request, StudentModel::rules($object), [], StudentModel::attributesName());
 
-        if (StudentModel::checkStudent($request, $object)) {
+        if ($object->checkStudent($request)) {
             return redirect()->back()->with('error', 'Студент с такими данными уже есть.');
         }
 
         try {
-            $date = StudentModel::finishEducationForDB($request->finish_education);
+            $date = $object->finishEducationForDB($request->input('finish_education'));
             $object->fill($request->all());
             $object->finish_education = $date;
             $result = $object->save();
@@ -118,6 +142,11 @@ class StudentController extends Controller
     }
 
     // Загрузка таблицей excel
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function import(Request $request) {
         if (!$request->hasFile('students')) {
             return redirect()->back()->with('error', 'Вы не загрузили файл');
@@ -141,6 +170,10 @@ class StudentController extends Controller
     }
 
     // Выгрузка таблицы excel
+
+    /**
+     * @return \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
     public function export() {
         try {
             return Excel::download(new ServiceExport, 'students.xlsx');
@@ -150,6 +183,10 @@ class StudentController extends Controller
 
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
     public function find(Request $request) {
         $request->flash();
         if ($request->protocol_find && $request->surname_find) {
@@ -176,6 +213,9 @@ class StudentController extends Controller
         }
     }
 
+    /**
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function deleteAll() {
         try {
             StudentModel::truncate();
