@@ -74,7 +74,7 @@ Route::group([
     ], function (){
         Route::get('/', 'UserController@index')->name('index');
         Route::post('/create', 'UserController@create')->name('create');
-        Route::post('/delete/{user}', 'UserController@delete')->name('delete');
+        Route::delete('/delete/{user}', 'UserController@delete')->name('delete');
     });
 });
 

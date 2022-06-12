@@ -46,10 +46,14 @@ class UserController extends Controller
         }
     }
 
-    public function delete(Request $request) {
+    /**
+     * @param User $user
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function delete(User $user) {
         try {
-            if (DB::table('users')->delete($request->id)) {
-                return redirect()->route('admin.index')->with('success', 'Админ успешно удален.');
+            if ($user->delete()) {
+                return back()->with('success', 'Админ успешно удален.');
             } else {
                 return back()->with('error', 'Не удалось удалить админа. Попробуйте еще раз');
             }
@@ -58,6 +62,10 @@ class UserController extends Controller
         }
     }
 
+    /**
+     * @param array $data
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
     private function validator(array $data)
     {
         return Validator::make($data, [

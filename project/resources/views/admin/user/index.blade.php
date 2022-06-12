@@ -16,11 +16,11 @@
                     Email: <span>{{ $item->email }}</span>
                 </p>
                 <div class="students__buttons-group flex">
-                    <form action="{{ route('admin.user.delete', $item->id) }}" method="post">
-                        @csrf
-                        <input type="hidden" name="id" value="{{ $item->id }}">
-                        <button type="submit" class="btn btn-danger">Удалить</button>
-                    </form>
+                    @include('admin._templates._delete_group', [
+                        'id' => $item->id,
+                        'title' => $item->name,
+                        'route' => 'admin.user.delete'
+                    ])
                 </div>
                 <hr>
             @endforeach
