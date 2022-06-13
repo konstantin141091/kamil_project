@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Permission;
+use App\Models\UserPermission;
 use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Hash;
@@ -73,5 +75,44 @@ class UserController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
+    }
+
+    /**
+     * @param User $user
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function permissionEdit(User $user, Request $request) {
+        $permissions = Permission::all();
+        $user_permissions = UserPermission::query()->where(['user_id' => $user->id])->get();
+
+        return view('admin.user.permissions', [
+            'permissions' => $permissions,
+            'user_permissions' => $user_permissions,
+            'user' => $user,
+            'admin' => $request->user(),
+        ]);
+    }
+
+    /**
+     * @param User $user
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function permissionUpdate(User $user, Request $request) {
+        $permissions = [];
+        foreach ($request->all() as $key => $item) {
+            if (stristr($key, 'permission')) {
+                array_push($permissions, $item);
+            }
+        }
+        UserPermission::query()->where('user_id', '=', $user->id)->delete();
+        foreach ($permissions as $item) {
+            UserPermission::create([
+                'user_id' => $user->id,
+                'permission_id' => $item,
+            ]);
+        }
+        return back()->with('success', 'Успешно');
     }
 }

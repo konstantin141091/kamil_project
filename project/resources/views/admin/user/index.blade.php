@@ -22,6 +22,9 @@
                         'route' => 'admin.user.delete'
                     ])
                 </div>
+                <div class="students__buttons-group flex mt-3">
+                    <a href="{{ route('admin.user.permission_edit', $item) }}" class="btn btn-info">Права доступа</a>
+                </div>
                 <hr>
             @endforeach
             <div>

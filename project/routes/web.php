@@ -62,7 +62,7 @@ Route::group([
         Route::get('/{student}', 'StudentController@show')->name('show');
         Route::get('/edit/{student}', 'StudentController@edit')->name('edit');
         Route::post('/update/{student}', 'StudentController@update')->name('update');
-        Route::post('/delete/{student}', 'StudentController@delete')->name('delete');
+        Route::delete('/delete/{student}', 'StudentController@delete')->name('delete');
         Route::post('/find', 'StudentController@find')->name('find');
         Route::get('/delete/all', 'StudentController@deleteAll')->name('deleteAll')
             ->middleware('isAdmin');
@@ -75,6 +75,8 @@ Route::group([
         Route::get('/', 'UserController@index')->name('index');
         Route::post('/create', 'UserController@create')->name('create');
         Route::delete('/delete/{user}', 'UserController@delete')->name('delete');
+        Route::get('/permission/{user}', 'UserController@permissionEdit')->name('permission_edit');
+        Route::post('/permission/{user}', 'UserController@permissionUpdate')->name('permission_update');
     });
 });
 

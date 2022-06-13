@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Models\Permission;
+use App\Models\UserPermission;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -36,4 +38,27 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * @param string $permission_slug
+     * @return bool
+     */
+    public function checkPermission(string $permission_slug) : bool
+    {
+        if ($this->is_admin) {
+            return true;
+        }
+        $permission = Permission::query()->where(['slug' => $permission_slug])->first();
+        if ($permission) {
+            $user_permission = UserPermission::query()
+                ->where(['user_id' => $this->id])
+                ->where(['permission_id' => $permission->id])
+                ->first();
+            if ($user_permission) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

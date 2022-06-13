@@ -13,33 +13,39 @@ use Jenssegers\Agent\Agent;
 
 class StudentController extends Controller
 {
+
     /**
+     * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
-    public function index() {
+    public function index(Request $request) {
         try {
             $students = StudentModel::paginate(10);
             foreach ($students as $student) {
                 $student->finish_education = StudentModel::finishEducation($student->finish_education);
             }
             return view('admin.student.index', [
-                'students' => $students
+                'students' => $students,
+                'admin' => $request->user(),
             ]);
         } catch (\Exception $exception) {
             return back()->with('error', 'Сбой базы данных. Попробуйте еще раз');
         }
     }
 
+
     /**
-     * @param $id
+     * @param int $id
+     * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
-    public function show($id) {
+    public function show(int $id, Request $request) {
         try {
             $student = StudentModel::query()->find($id);
             $student->finish_education = StudentModel::finishEducation($student->finish_education);
             return view('admin.student.show', [
-                'student' => $student
+                'student' => $student,
+                'admin' => $request->user(),
             ]);
         } catch (\Exception $exception) {
             return redirect()->route('admin.index')->with('error', 'Сбой базы данных. Попробуйте еще раз');
@@ -47,11 +53,13 @@ class StudentController extends Controller
 
     }
 
+
     /**
-     * @param $id
+     * @param int $id
+     * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
-    public function edit($id) {
+    public function edit(int $id, Request $request) {
         try {
             $student = StudentModel::query()->find($id);
             $agent = new Agent();
@@ -59,6 +67,7 @@ class StudentController extends Controller
             return view('admin.student.edit', [
                 'student' => $student,
                 'browser' => $browser,
+                'admin' => $request->user(),
             ]);
         } catch (\Exception $exception) {
             return back()->with('error', 'Сбой базы данных. Попробуйте еще раз');
@@ -98,7 +107,7 @@ class StudentController extends Controller
     public function delete($id) {
         try {
             if (DB::table('students')->where('id', '=', $id)->delete()) {
-                return redirect()->route('admin.index')->with('success', 'Запись успешно удалена.');
+                return back()->with('success', 'Запись успешно удалена.');
             } else {
                 return back()->with('error', 'Не удалось удалить запись. Попробуйте еще раз');
             }

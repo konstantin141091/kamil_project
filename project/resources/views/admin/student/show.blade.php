@@ -8,8 +8,8 @@
         @if(session('success'))
             <div class="alert alert-success" role="alert">{{ session('success') }}</div>
         @endif
-        <h3 class="h3-mobile">Данные записи студента</h3>
-       <div class="find__answer">
+            <h3 class="h3-mobile">Данные записи студента</h3>
+            <div class="find__answer">
            <p>Протокол: <span>{{ $student->protocol }}</span></p>
            <p>Имя: <span>{{ $student->name }}</span></p>
            <p>Фамилия: <span>{{ $student->surname }}</span></p>
@@ -26,13 +26,18 @@
            <p>Комментарий: <span>{{ $student->comment }}</span></p>
            <hr>
        </div>
-        <div class="students__buttons-group">
-            <a href="{{ route('admin.student.edit', $student->id) }}" class="btn btn-success">Редактировать</a>
-            <form action="{{ route('admin.student.delete', $student->id) }}" method="post">
-                @csrf
-                <button type="submit" class="btn btn-danger">Удалить</button>
-            </form>
-        </div>
-
+            <div class="students__buttons-group">
+                @if($admin->checkPermission(\App\Models\Permission::student_edit))
+                    <a href="{{ route('admin.student.edit', $student->id) }}" class="btn btn-success">Редактировать</a>
+                @endif
+                    @if($admin->checkPermission(\App\Models\Permission::student_delete))
+                        @include('admin._templates._delete_group', [
+                            'id' => $student->id,
+                            'title' => $student->surname,
+                            'route' => 'admin.student.delete',
+                            'item' => $student,
+                        ])
+                    @endif
+            </div>
     </div>
 @endsection

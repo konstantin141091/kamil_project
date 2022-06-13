@@ -1,4 +1,4 @@
-<button type="button" class="btn btn-danger mt-2" data-toggle="modal" data-target="#deleteModal-{{ $id }}">
+<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal-{{ $id }}">
     Удалить
 </button>
 <!-- Modal -->

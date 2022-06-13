@@ -243,11 +243,13 @@
             </form>
             <hr>
         </div>
-        <form action="{{ route('admin.student.delete', $student->id) }}" method="post">
-            @csrf
-            <div class="form-btn">
-                <button type="submit" class="btn btn-danger">Удалить</button>
-            </div>
-        </form>
+            @if($admin->checkPermission(\App\Models\Permission::student_delete))
+                @include('admin._templates._delete_group', [
+                    'id' => $student->id,
+                    'title' => $student->surname,
+                    'route' => 'admin.student.delete',
+                    'item' => $student,
+                ])
+            @endif
     </div>
 @endsection

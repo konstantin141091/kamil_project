@@ -36,12 +36,19 @@
                     <span>Дата окончания:</span> {{ $item->finish_education }}
                 </p>
             <div class="students__buttons-group flex">
-                <a href="{{ route('admin.student.show', $item->id) }}" class="btn btn-primary">Подробнее</a>
-                <a href="{{ route('admin.student.edit', $item->id) }}" class="btn btn-success">Редактировать</a>
-                <form action="{{ route('admin.student.delete', $item->id) }}" method="post">
-                    @csrf
-                    <button type="submit" class="btn btn-danger">Удалить</button>
-                </form>
+                @if($admin->checkPermission(\App\Models\Permission::student_show))
+                    <a href="{{ route('admin.student.show', $item->id) }}" class="btn btn-primary">Подробнее</a>
+                @endif
+                @if($admin->checkPermission(\App\Models\Permission::student_edit))
+                    <a href="{{ route('admin.student.edit', $item->id) }}" class="btn btn-success">Редактировать</a>
+                @endif
+                    @if($admin->checkPermission(\App\Models\Permission::student_delete))
+                        @include('admin._templates._delete_group', [
+                            'id' => $item->id,
+                            'title' => $item->surname,
+                            'route' => 'admin.student.delete'
+                        ])
+                    @endif
             </div>
             <hr>
             @endforeach
